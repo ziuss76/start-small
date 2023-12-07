@@ -26,25 +26,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className='flex h-screen w-screen items-center justify-center'>
-      <div>{children}</div>
-      <div className='absolute bottom-0 flex h-20 w-full max-w-screen-md bg-blue-400 text-center'>
-        <div className='flex h-full w-1/5 items-center justify-center'>
-          <Link href='/home'>홈</Link>
-        </div>
-        <div className='flex h-full w-1/5 items-center justify-center'>
-          <Link href='/calendar'>캘린더</Link>
-        </div>
-        <div className='flex h-full w-1/5 items-center justify-center'>
-          <Link href='/mind'>명상</Link>
-        </div>
-        <div className='flex h-full w-1/5 items-center justify-center'>
-          <Link href='/graph'>그래프</Link>
-        </div>
-        <div className='flex h-full w-1/5 items-center justify-center'>
-          <Link href='/setting'>설정</Link>
+    <html lang='en'>
+      <div className='flex h-screen w-screen items-center justify-center'>
+        <div>{children}</div>
+        <div className='absolute bottom-0 flex h-20 w-full max-w-screen-md bg-blue-400 text-center'>
+          <div className='flex h-full w-1/5 items-center justify-center'>
+            <Link href='/home'>홈</Link>
+          </div>
+          <div className='flex h-full w-1/5 items-center justify-center'>
+            <Link href='/calendar'>캘린더</Link>
+          </div>
+          <div className='flex h-full w-1/5 items-center justify-center'>
+            <Link href='/mind'>명상</Link>
+          </div>
+          <div className='flex h-full w-1/5 items-center justify-center'>
+            <Link href='/graph'>그래프</Link>
+          </div>
+          <div className='flex h-full w-1/5 items-center justify-center'>
+            <Link href='/setting'>설정</Link>
+          </div>
         </div>
       </div>
-    </div>
+    </html>
   );
 }
