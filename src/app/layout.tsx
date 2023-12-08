@@ -26,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <div className='flex h-[100dvh] w-[100dvw] items-center justify-center'>
+    <html lang='ko'>
+      <body className='flex h-[100dvh] w-[100dvw] items-center justify-center'>
         <div>{children}</div>
         <div className='absolute bottom-0 flex h-20 w-full max-w-screen-md bg-blue-400 text-center'>
           <div className='flex h-full w-1/5 items-center justify-center'>
@@ -46,7 +46,7 @@ export default function RootLayout({
             <Link href='/setting'>설정</Link>
           </div>
         </div>
-      </div>
+      </body>
     </html>
   );
 }
