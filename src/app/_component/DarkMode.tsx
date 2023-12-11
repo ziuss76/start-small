@@ -21,13 +21,14 @@ export default function DarkMode() {
   }, []);
 
   const darkModeToggle = () => {
+    let aYear = 365 * 24 * 3600;
     if (document.documentElement.classList.contains('dark')) {
       document.documentElement.classList.remove('dark');
-      document.cookie = 'mode=light';
+      document.cookie = 'mode=light; max-age=' + aYear;
       setDarkMode(false);
     } else {
       document.documentElement.classList.add('dark');
-      document.cookie = 'mode=dark';
+      document.cookie = 'mode=dark; max-age=' + aYear;
       setDarkMode(true);
     }
   };
