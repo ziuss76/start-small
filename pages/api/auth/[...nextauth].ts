@@ -14,3 +14,5 @@ export const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
 };
 export default NextAuth(authOptions);
+
+// 외부 라이브러리 next-auth 에서 pages 폴더에 만들라고 했기 때문에 app 폴더에 만들지 않았음.
