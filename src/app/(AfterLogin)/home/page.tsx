@@ -3,27 +3,21 @@ import '@/app/globals.css';
 import clientPromise from '@/../util/db';
 import UseDarkMode from '@/app/_component/useDarkMode';
 import { revalidatePath } from 'next/cache';
+import CalWeight from './calWeight';
 
 export default async function Home() {
   let db = (await clientPromise)?.db('StartSmall');
-  let result = await db?.collection('weight').find().toArray();
-
-  // db 안 weight collection 에 자신의 이름(name: 구글 아이디)과 일치하는 객체가 비어있으면
-  // input 창을 띄워서 필수 값(squat, bench, deadLift, press, chinUp)을 각각 입력받고
-  // 필수가 아닌 값(curl, dip, row, rdl)을 입력받는다. 건너뛰기 버튼을 누르면 그 값은 0으로 저장된다.
-  // 그 값과 자신의 이름(name: 구글 아이디)을 객체에 넣어서 db에 저장한다.
+  let result = await db?.collection('weights').find().toArray();
 
   async function handleSubmit(formData: FormData) {
     'use server';
     let db = (await clientPromise)?.db('StartSmall');
-    await db?.collection('weight').insertOne({
-      bench: Number(formData.get('bench')),
-      squat: Number(formData.get('squat')),
-      deadLift: Number(formData.get('deadLift')),
+    await db?.collection('weights').insertOne({
       press: Number(formData.get('press')),
-      chinUp: Number(formData.get('chinUp')),
+      squat: Number(formData.get('squat')),
+      bench: Number(formData.get('bench')),
+      deadLift: Number(formData.get('deadLift')),
     });
-    console.log(formData.get('bench'));
     revalidatePath('/home');
   }
 
@@ -38,67 +32,53 @@ export default async function Home() {
         </div>
         <div className='flex h-5/6'>
           <div className='flex h-full w-full flex-col justify-start text-center'>
-            <div className=' mb-2 flex h-1/5 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
-              <form action={handleSubmit}>
-                <label htmlFor='bench'>bench : </label>
-                <input
-                  type='text'
-                  name='bench'
-                  required
-                  placeholder=' ex) 60'
-                  className='m-1 text-slate-900'
-                />
-                <label htmlFor='squat'>squat : </label>
-                <input
-                  type='text'
-                  name='squat'
-                  required
-                  placeholder=' ex) 100'
-                  className='m-1 text-slate-900'
-                />
-                <br />
-                <label htmlFor='deadLift'>deadLift : </label>
-                <input
-                  type='text'
-                  name='deadLift'
-                  required
-                  placeholder='ex) 100'
-                  className='m-1 text-slate-900'
-                />
-                <label htmlFor='press'>press : </label>
-                <input
-                  type='text'
-                  name='press'
-                  required
-                  placeholder='ex) 30'
-                  className='m-1 text-slate-900'
-                />
-                <br />
-                <label htmlFor='chinUp'>chinUp : </label>
-                <input
-                  type='text'
-                  name='chinUp'
-                  required
-                  placeholder=' ex) 5'
-                  className='m-1 text-slate-900'
-                />
-                <br />
-                <button type='submit'>제출</button>
-              </form>
-            </div>
-            <div className=' mb-2 flex h-1/5 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
-              {result?.map((item, i) => (
-                <div key={i}>
-                  <p>bench : {item.bench}</p>
-                  <p>squat : {item.squat}</p>
-                  <p>deadLift : {item.deadLift}</p>
-                  <p>press : {item.press}</p>
-                  <p>chinUp : {item.chinUp}</p>
-                </div>
-              ))}
-            </div>
-            <div className=' mb-2 flex h-1/5 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
-              <div>금</div>
+            <div className=' mb-2 flex h-3/5 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
+              {result.length ? (
+                <CalWeight result={result} />
+              ) : (
+                <form action={handleSubmit} className='w-4/5'>
+                  <div className='flex w-full flex-col items-center'>
+                    <input
+                      type='number'
+                      min='20'
+                      name='press'
+                      required
+                      placeholder='OHP 중량 숫자만 입력해주세요.'
+                      className=' m-1.5 w-full rounded-lg p-2 text-slate-900 shadow-md focus:outline-slate-400'
+                    />
+                    <input
+                      type='number'
+                      min='20'
+                      name='squat'
+                      required
+                      placeholder='스쿼트 중량 숫자만 입력해주세요.'
+                      className='m-1.5 w-full rounded-lg p-2 text-slate-900 shadow-md focus:outline-slate-400'
+                    />
+                    <input
+                      type='number'
+                      min='20'
+                      name='bench'
+                      required
+                      placeholder='벤치 중량 숫자만 입력해주세요.'
+                      className='m-1.5 w-full rounded-lg p-2 text-slate-900 shadow-md focus:outline-slate-400'
+                    />
+                    <input
+                      type='number'
+                      min='20'
+                      name='deadLift'
+                      required
+                      placeholder='데드 중량 숫자만 입력해주세요.'
+                      className='m-1.5 w-full rounded-lg p-2 text-slate-900 shadow-md focus:outline-slate-400'
+                    />
+                    <button
+                      type='submit'
+                      className='text-md my-3 w-3/5 rounded-lg bg-slate-50 px-5 py-2.5 font-medium text-slate-900 shadow-md hover:bg-slate-200 focus:outline-slate-400 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-700'
+                    >
+                      제출
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
             <div className=' mb-2 flex h-1/5 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
               <div>운동 시작 / 현재 진행 중 운동</div>
