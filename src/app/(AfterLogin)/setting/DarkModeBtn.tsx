@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-export default function DarkMode() {
+export default function DarkModeBtn() {
   let [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {

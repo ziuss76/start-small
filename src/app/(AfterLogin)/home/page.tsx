@@ -4,6 +4,7 @@ import clientPromise from '@/../util/db';
 import UseDarkMode from '@/app/_component/useDarkMode';
 import { revalidatePath } from 'next/cache';
 import CalWeight from './calWeight';
+import { IoFlame } from 'react-icons/io5';
 
 export default async function Home() {
   let db = (await clientPromise)?.db('StartSmall');
@@ -25,14 +26,14 @@ export default async function Home() {
     <div className='flex justify-center'>
       <UseDarkMode />
       <div className='h-[100dvh] w-[100dvw] max-w-screen-md'>
-        <div className='mb-2 h-20'>
+        <div className='mb-2 h-16'>
           <div className='flex h-full w-full items-center justify-center bg-slate-400 text-center dark:bg-slate-600'>
             <div>홈</div>
           </div>
         </div>
         <div className='flex h-5/6'>
           <div className='flex h-full w-full flex-col justify-start text-center'>
-            <div className=' mb-2 flex h-3/5 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
+            <div className=' mb-2 flex h-4/6 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
               {result.length ? (
                 <CalWeight result={result} />
               ) : (
@@ -43,7 +44,7 @@ export default async function Home() {
                       min='20'
                       name='press'
                       required
-                      placeholder='OHP 중량 숫자만 입력해주세요.'
+                      placeholder='OHP 1RM의 숫자만 입력해주세요.'
                       className=' m-1.5 w-full rounded-lg p-2 text-slate-900 shadow-md focus:outline-slate-400'
                     />
                     <input
@@ -51,7 +52,7 @@ export default async function Home() {
                       min='20'
                       name='squat'
                       required
-                      placeholder='스쿼트 중량 숫자만 입력해주세요.'
+                      placeholder='스쿼트 1RM의 숫자만 입력해주세요.'
                       className='m-1.5 w-full rounded-lg p-2 text-slate-900 shadow-md focus:outline-slate-400'
                     />
                     <input
@@ -59,7 +60,7 @@ export default async function Home() {
                       min='20'
                       name='bench'
                       required
-                      placeholder='벤치 중량 숫자만 입력해주세요.'
+                      placeholder='벤치 1RM의 숫자만 입력해주세요.'
                       className='m-1.5 w-full rounded-lg p-2 text-slate-900 shadow-md focus:outline-slate-400'
                     />
                     <input
@@ -67,7 +68,7 @@ export default async function Home() {
                       min='20'
                       name='deadLift'
                       required
-                      placeholder='데드 중량 숫자만 입력해주세요.'
+                      placeholder='데드 1RM의 숫자만 입력해주세요.'
                       className='m-1.5 w-full rounded-lg p-2 text-slate-900 shadow-md focus:outline-slate-400'
                     />
                     <button
@@ -80,12 +81,12 @@ export default async function Home() {
                 </form>
               )}
             </div>
-            <div className=' mb-2 flex h-1/5 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
+            <div className='mb-2 flex h-1/5 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
+              <IoFlame size={30} />
               <div>운동 시작 / 현재 진행 중 운동</div>
             </div>
           </div>
         </div>
-        U
       </div>
     </div>
   );
