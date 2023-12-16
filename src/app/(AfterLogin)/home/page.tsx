@@ -1,5 +1,3 @@
-import '@/app/globals.css';
-
 import clientPromise from '@/../util/db';
 import UseDarkMode from '@/app/_component/useDarkMode';
 import { revalidatePath } from 'next/cache';
@@ -12,14 +10,21 @@ export default async function Home() {
 
   async function handleSubmit(formData: FormData) {
     'use server';
-    let db = (await clientPromise)?.db('StartSmall');
-    await db?.collection('weights').insertOne({
-      press: Number(formData.get('press')),
-      squat: Number(formData.get('squat')),
-      bench: Number(formData.get('bench')),
-      deadLift: Number(formData.get('deadLift')),
-    });
-    revalidatePath('/home');
+    let shouldRedirect = false;
+    try {
+      let db = (await clientPromise)?.db('StartSmall');
+      await db?.collection('weights').insertOne({
+        press: Number(formData.get('press')),
+        squat: Number(formData.get('squat')),
+        bench: Number(formData.get('bench')),
+        deadLift: Number(formData.get('deadLift')),
+      });
+      shouldRedirect = true;
+    } catch (err) {
+      console.error(err);
+      return;
+    }
+    if (shouldRedirect) revalidatePath('/home');
   }
 
   return (

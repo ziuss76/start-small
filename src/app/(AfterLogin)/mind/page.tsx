@@ -1,3 +1,5 @@
+import BreathAni from './BreathAni';
+
 export default function Mind() {
   return (
     <div className='flex justify-center'>
@@ -9,7 +11,9 @@ export default function Mind() {
         </div>
         <div className='flex h-5/6'>
           <div className='flex h-full w-full flex-col justify-start text-center'>
-            <div className=' mb-2 flex h-4/6 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'></div>
+            <div className=' mb-2 flex h-4/6 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
+              <BreathAni />
+            </div>
             <div className='mb-2 flex h-1/5 w-full items-center justify-center bg-slate-300 text-center dark:bg-slate-500'>
               <div>명상 오디오, 호흡 GIF</div>
             </div>

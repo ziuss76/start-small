@@ -5,7 +5,7 @@ export default function Setting() {
   return (
     <div className='flex justify-center'>
       <div className='h-[100dvh] w-[100dvw] max-w-screen-md'>
-        <div className='mb-2 h-20'>
+        <div className='mb-2 h-16'>
           <div className='flex h-full w-full items-center justify-center bg-slate-400 text-center dark:bg-slate-600'>
             <div>설정</div>
           </div>

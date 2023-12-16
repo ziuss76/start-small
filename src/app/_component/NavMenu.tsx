@@ -1,5 +1,4 @@
 'use client';
-
 import { useSelectedLayoutSegment } from 'next/navigation';
 import {
   IoHome,
@@ -17,7 +16,7 @@ import Link from 'next/link';
 
 export default function NavMenu() {
   const segment = useSelectedLayoutSegment();
-  console.log(segment);
+  // console.log(segment);
 
   return (
     <nav className='absolute bottom-0 flex h-20 w-full max-w-screen-md bg-slate-400 text-center dark:bg-slate-600'>

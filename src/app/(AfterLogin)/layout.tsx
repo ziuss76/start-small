@@ -1,4 +1,4 @@
-import NavMenu from './home/NavMenu';
+import NavMenu from '../_component/NavMenu';
 import '../globals.css';
 
 export default function AfterLoginLayout({
