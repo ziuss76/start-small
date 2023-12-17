@@ -19,7 +19,7 @@ export default function NavMenu() {
   // console.log(segment);
 
   return (
-    <nav className='absolute bottom-0 flex h-20 w-full max-w-screen-md bg-slate-400 text-center dark:bg-slate-600'>
+    <nav className='absolute bottom-0 flex h-20 w-full max-w-screen-md  text-center '>
       <Link
         className='flex h-full w-1/5 items-center justify-center'
         href='/calendar'

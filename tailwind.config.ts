@@ -16,7 +16,7 @@ const config: Config = {
         },
       },
       animation: {
-        'breath-slow': 'breath 9s ease-in-out infinite',
+        'breath-slow': 'breath 10s ease-in-out infinite',
       },
     },
   },
