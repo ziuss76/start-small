@@ -34,7 +34,7 @@ export default function CalWeight(result: any) {
       <div>
         {trainingDay[0]} / {training[0]}
       </div>
-      <div className='m-4 flex space-x-3'>
+      <div className='m-2 flex space-x-3'>
         {weekOneWeights[0].map((weight, i) => (
           <button key={i}>
             {weight} X {trainingReps[i]}
@@ -44,7 +44,7 @@ export default function CalWeight(result: any) {
       <div>
         {trainingDay[1]} / {training[1]}
       </div>
-      <div className='m-4 flex space-x-3'>
+      <div className='m-2 flex space-x-3'>
         {weekOneWeights[1].map((weight, i) => (
           <button key={i}>
             {weight} X {trainingReps[i]}
@@ -54,7 +54,7 @@ export default function CalWeight(result: any) {
       <div>
         {trainingDay[2]} / {training[2]}
       </div>
-      <div className='m-4 flex space-x-3'>
+      <div className='m-2 flex space-x-3'>
         {weekOneWeights[2].map((weight, i) => (
           <button key={i}>
             {weight} X {trainingReps[i]}
@@ -64,7 +64,7 @@ export default function CalWeight(result: any) {
       <div>
         {trainingDay[3]} / {training[3]}
       </div>
-      <div className='m-4 flex space-x-3'>
+      <div className='m-2 flex space-x-3'>
         {weekOneWeights[3].map((weight, i) => (
           <button key={i}>
             {weight} X {trainingReps[i]}
