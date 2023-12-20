@@ -15,9 +15,7 @@ export default function Mind() {
               <BreathAni />
             </div>
             <div className='flex h-1/5 w-full flex-col items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
-              <p className='mb-3'>
-                4-6 숨쉬기 리듬에 익숙해지면 명상을 시작하세요
-              </p>
+              <p className='mb-3'>4-6 숨쉬기에 익숙해지면 명상을 시작하세요</p>
               <button
                 className='
               rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'

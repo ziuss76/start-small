@@ -28,7 +28,17 @@ export default function CalWeight(result: any) {
   }
 
   // 오늘 날짜 기준으로 월요일이면 월 / press 가 bounce 애니메이션 동작
+  // 다른 운동은 bounce 애니메이션 동작 안함
   // 운동 시작 누르면 해당 요일의 운동만 보이기
+
+  // 위엔 월 / press 와 중량 보여주기
+  // 아래엔 5, 5, 5+(+크기 작게), 최대 (버튼)
+  // 모두 완료하면 축하 애니메이션과 메시지
+
+  // 다시 일주일 운동 목록과 중량 보여주기
+  // 완료한 운동은 색깔이 바뀌어야 함
+  // 다음 운동 요일 전까지는 시작하기 disabled
+
   return (
     <div className='flex flex-col'>
       <div>
