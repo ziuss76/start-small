@@ -1,11 +1,16 @@
+'use client';
+
+import { useState } from 'react';
+
 export default function CalWeight(result: any) {
   let oneRM = result.result[0];
+
   let TM = [oneRM.press, oneRM.squat, oneRM.bench, oneRM.deadLift].map(
     (w) => w * 0.9
   );
-  let trainingDay = ['월', '화', '목', '금'];
-  let training = ['press', 'squat', 'bench', 'deadLift'];
-  let trainingReps = ['5회', '5회', '5회+', '최대'];
+
+  let training = ['프레스', '스쿼트', '벤치', '데드'];
+  let trainingReps = ['5', '5', '5+', '최대'];
   let weekOnePer = [0.65, 0.75, 0.85, 0.65];
   let weekTwoPer = [0.7, 0.8, 0.9, 0.7];
   let weekThreePer = [0.75, 0.85, 0.95, 0.75];
@@ -19,12 +24,28 @@ export default function CalWeight(result: any) {
   let weekThreeWeights = TM.map((w) =>
     weekThreePer.map((per) => roundToTwoPointFive(w * per))
   );
-  console.log(weekOneWeights);
-  console.log(weekTwoWeights);
-  console.log(weekThreeWeights);
 
   function roundToTwoPointFive(x: number) {
     return Math.round(x / 2.5) * 2.5;
+  }
+
+  const [weekWeights, setWeekWeights] = useState([
+    weekOneWeights,
+    weekTwoWeights,
+    weekThreeWeights,
+  ]);
+  const [currentWeek, setCurrentWeek] = useState(0);
+  const [thisWeek, setThisWeek] = useState(['1주', '2주', '3주']);
+  const [currentDay, setCurrentDay] = useState(0);
+  const [trainingDay, setTrainingDay] = useState(['월', '화', '목', '금']);
+
+  function goNextDay() {
+    if (currentDay === 3) {
+      setCurrentWeek((currentWeek + 1) % 3);
+      setCurrentDay(0);
+    } else {
+      setCurrentDay(currentDay + 1);
+    }
   }
 
   // 오늘 날짜 기준으로 월요일이면 월 / press 가 bounce 애니메이션 동작
@@ -40,47 +61,36 @@ export default function CalWeight(result: any) {
   // 다음 운동 요일 전까지는 시작하기 disabled
 
   return (
-    <div className='flex flex-col'>
-      <div>
-        {trainingDay[0]} / {training[0]}
-      </div>
-      <div className='m-2 flex space-x-3'>
-        {weekOneWeights[0].map((weight, i) => (
-          <button key={i}>
-            {weight} X {trainingReps[i]}
-          </button>
-        ))}
-      </div>
-      <div>
-        {trainingDay[1]} / {training[1]}
-      </div>
-      <div className='m-2 flex space-x-3'>
-        {weekOneWeights[1].map((weight, i) => (
-          <button key={i}>
-            {weight} X {trainingReps[i]}
-          </button>
-        ))}
-      </div>
-      <div>
-        {trainingDay[2]} / {training[2]}
-      </div>
-      <div className='m-2 flex space-x-3'>
-        {weekOneWeights[2].map((weight, i) => (
-          <button key={i}>
-            {weight} X {trainingReps[i]}
-          </button>
-        ))}
-      </div>
-      <div>
-        {trainingDay[3]} / {training[3]}
-      </div>
-      <div className='m-2 flex space-x-3'>
-        {weekOneWeights[3].map((weight, i) => (
-          <button key={i}>
-            {weight} X {trainingReps[i]}
-          </button>
-        ))}
-      </div>
+    <div className='flex w-full flex-col items-center'>
+      <div>{thisWeek[currentWeek]}</div>
+      {trainingDay.map((day, index) => {
+        if (index !== currentDay) return null;
+
+        return (
+          <div key={index}>
+            <div>
+              {day} : {training[index]}
+            </div>
+            <div className='m-2 flex space-x-4'>
+              {weekWeights[currentWeek][index].map((weight, i) => (
+                <div className='flex flex-col items-center space-y-4'>
+                  <div>{weight}kg</div>
+                  <button className='h-16 w-16 rounded-full bg-slate-50 text-xl font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'>
+                    {trainingReps[i]}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+
+      <button
+        onClick={goNextDay}
+        className='text-md mt-4 w-24 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'
+      >
+        내일
+      </button>
     </div>
   );
 }

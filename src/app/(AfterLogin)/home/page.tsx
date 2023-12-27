@@ -3,10 +3,16 @@ import UseDarkMode from '@/app/_component/useDarkMode';
 import { revalidatePath } from 'next/cache';
 import CalWeight from './calWeight';
 import { IoFlame } from 'react-icons/io5';
+import { ObjectId } from 'mongodb';
 
 export default async function Home() {
   let db = (await clientPromise)?.db('StartSmall');
   let result = await db?.collection('weights').find().toArray();
+
+  result = result.map((a: any) => {
+    a._id = a._id.toString();
+    return a;
+  });
 
   async function handleSubmit(formData: FormData) {
     'use server';
