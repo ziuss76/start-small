@@ -1,22 +1,15 @@
 'use client';
 import { signIn } from 'next-auth/react';
+import { useEffect } from 'react';
 
-type SessionProp = {
-  user: {
-    name: string;
-    email: string;
-    image: string;
-  };
-};
+export default function LoginBtn() {
+  useEffect(() => {
+    signIn();
+  }, []);
 
-export default function LoginButton({ session }: { session: SessionProp }) {
   return (
-    <button
-      type='button'
-      className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 hover:bg-slate-200'
-      onClick={() => signIn()}
-    >
-      로그인
-    </button>
+    <div className='flex h-[100dvh] w-[100dvw] items-center justify-center'>
+      <div>잠시만 기다려주세요...</div>
+    </div>
   );
 }

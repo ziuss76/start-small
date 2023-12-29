@@ -1,4 +1,4 @@
-import LoginButton from '../_component/LoginBtn';
+import LoginBtn from '../_component/LoginBtn';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
@@ -9,9 +9,7 @@ export default async function Login() {
   return (
     <>
       {session && session.user && redirect('/home')}
-      <LoginButton
-        session={null || { user: { name: '', email: '', image: '' } }}
-      />
+      <LoginBtn />
     </>
   );
 }
