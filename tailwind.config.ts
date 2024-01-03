@@ -14,9 +14,20 @@ const config: Config = {
           '40%': { transform: 'scale(1)' },
           '100%': { transform: 'scale(0.4)' },
         },
+        bounce: {
+          '0%, 100%': {
+            transform: 'translateY(0)',
+            animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
+          },
+          '50%': {
+            transform: 'translateY(-25%)',
+            animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)',
+          },
+        },
       },
       animation: {
         'breath-slow': 'breath 10s ease-in-out infinite',
+        'bounce-fast': 'bounce 0.7s ease-in-out 5',
       },
     },
   },

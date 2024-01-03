@@ -1,6 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
+import Confetti from './Confetti';
 
 export default function CalWeight(result: any) {
   let oneRM = result.result[0];
@@ -59,10 +61,6 @@ export default function CalWeight(result: any) {
     );
   }
 
-  // 오늘 날짜 기준으로 월요일이면 월 / 프레스 가 bounce 애니메이션 동작
-  // 다른 운동은 bounce 애니메이션 동작 안함
-  // 운동 시작 누르면 해당 요일의 운동만 보이기
-
   // 위엔 월 / 프레스 와 중량 보여주기
   // 아래엔 5, 5, 5+(+크기 작게), 최대 (버튼)
   // 모두 완료하면 축하 애니메이션과 메시지
@@ -72,7 +70,7 @@ export default function CalWeight(result: any) {
   // 다음 운동 요일 전까지는 시작하기 disabled
 
   return (
-    <div className='flex w-full flex-col items-center'>
+    <div className='relative flex w-full flex-col items-center'>
       <div>{thisWeek[currentWeek]}</div>
       {trainingDay.map((day, index) => {
         if (index !== currentDay) return null;
@@ -84,22 +82,18 @@ export default function CalWeight(result: any) {
             </div>
             <div className='m-2 flex space-x-4'>
               {weekWeights[currentWeek][index].map((weight, i) => (
-                <div className='flex flex-col items-center space-y-4'>
+                <div key={i} className='flex flex-col items-center space-y-4'>
                   <div>{weight}kg</div>
                   {doneReps[i] === 0 ? (
                     <button
                       onClick={() => doneRepsHandler(i)}
                       className='h-16 w-16 rounded-full bg-slate-50 text-xl font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'
                       disabled={i > 0 && doneReps[i - 1] === 0}
-                      key={i}
                     >
                       {trainingReps[i]}
                     </button>
                   ) : (
-                    <button
-                      key={i}
-                      className='h-16 w-16 rounded-full bg-slate-700 text-xl font-medium text-white shadow-md hover:bg-slate-600 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-200'
-                    >
+                    <button className='h-16 w-16 rounded-full bg-slate-700 text-xl font-medium text-white shadow-md hover:bg-slate-600 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-200'>
                       {trainingReps[i]}
                     </button>
                   )}
@@ -111,12 +105,20 @@ export default function CalWeight(result: any) {
       })}
 
       {doneReps.includes(0) ? null : (
-        <button
-          onClick={goNextDay}
-          className='text-md mt-4 w-24 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'
-        >
-          다음
-        </button>
+        // <button
+        //   onClick={goNextDay}
+        //   className='text-md mt-4 w-24 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'
+        // >
+        //   다음
+        // </button>
+        <div className='absolute top-full'>
+          <Link href='/home'>
+            <button className='text-md mt-4 w-32 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'>
+              빅토리!
+            </button>
+          </Link>
+          <Confetti />
+        </div>
       )}
     </div>
   );
