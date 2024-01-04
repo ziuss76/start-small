@@ -59,10 +59,10 @@ export default function CalWeight(result: any) {
       {trainingDay.map((day, index) => {
         return (
           <div key={index}>
-            <div className='m-2 flex space-x-4'>
+            <div className='m-2 flex space-x-3'>
               {today === day ? (
                 <div className='relative flex'>
-                  <div className='absolute right-[4.6rem] animate-bounce-fast'>
+                  <div className='absolute right-[4.5rem] animate-bounce-fast'>
                     🔥
                   </div>
                   <div>
@@ -75,7 +75,7 @@ export default function CalWeight(result: any) {
                 </div>
               )}
               {weekWeights[currentWeek][index].map((weight, i) => (
-                <div key={i} className='flex flex-col items-center space-y-4'>
+                <div key={i} className='flex flex-col items-center'>
                   <div>{weight}kg</div>
                 </div>
               ))}
