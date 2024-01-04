@@ -27,7 +27,7 @@ const config: Config = {
       },
       animation: {
         'breath-slow': 'breath 10s ease-in-out infinite',
-        'bounce-fast': 'bounce 0.7s ease-in-out 5',
+        'bounce-fast': 'bounce 0.6s ease-in-out 3',
       },
     },
   },
