@@ -63,7 +63,7 @@ export default function Realistic() {
   return (
     <>
       <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
-      <audio src={levelUp} autoPlay />
+      <audio src={levelUp} autoPlay preload='auto' />
     </>
   );
 }
