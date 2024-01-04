@@ -63,7 +63,7 @@ export default function CalWeight(result: any) {
               {today === day ? (
                 <div className='relative flex'>
                   <div className='absolute right-[4.5rem] animate-bounce-fast'>
-                    🔥
+                    🐢
                   </div>
                   <div>
                     {day} : {training[index]}
