@@ -1,7 +1,3 @@
-'use client';
-
-import { useState } from 'react';
-
 export default function CalWeight(result: any) {
   let oneRM = result.result[0];
 
@@ -10,9 +6,9 @@ export default function CalWeight(result: any) {
   );
 
   let training = ['프레스', '스쿼트', '벤치', '데드'];
-  let weekOnePer = [0.65, 0.75, 0.85, 0.65];
-  let weekTwoPer = [0.7, 0.8, 0.9, 0.7];
-  let weekThreePer = [0.75, 0.85, 0.95, 0.75];
+  let weekOnePer = [0.65, 0.75, 0.85];
+  let weekTwoPer = [0.7, 0.8, 0.9];
+  let weekThreePer = [0.75, 0.85, 0.95];
 
   let weekOneWeights = TM.map((w) =>
     weekOnePer.map((per) => roundToTwoPointFive(w * per))
@@ -28,15 +24,10 @@ export default function CalWeight(result: any) {
     return Math.round(x / 2.5) * 2.5;
   }
 
-  const [weekWeights, setWeekWeights] = useState([
-    weekOneWeights,
-    weekTwoWeights,
-    weekThreeWeights,
-  ]);
-  const [currentWeek, setCurrentWeek] = useState(0);
-  const [thisWeek, setThisWeek] = useState(['1주', '2주', '3주']);
-  const [currentDay, setCurrentDay] = useState(0);
-  const [trainingDay, setTrainingDay] = useState(['월', '화', '목', '금']);
+  let weekWeights = [weekOneWeights, weekTwoWeights, weekThreeWeights];
+  let currentWeek = 0;
+  let thisWeek = ['1주', '2주', '3주'];
+  let trainingDay = ['월', '화', '목', '금'];
 
   // 다시 일주일 운동 목록과 중량 보여주기
   // 완료한 운동은 색깔이 바뀌어야 함
@@ -59,16 +50,16 @@ export default function CalWeight(result: any) {
       {trainingDay.map((day, index) => {
         return (
           <div key={index}>
-            <div className='m-2 flex space-x-3'>
+            <div className='relative m-2 flex space-x-3'>
               {today === day ? (
-                <div className='relative flex'>
-                  <div className='absolute right-[4.5rem] animate-bounce-fast'>
+                <>
+                  <div className='absolute bottom-[0.2rem] left-[-1rem] animate-bounce-fast'>
                     🐢
                   </div>
-                  <div>
+                  <p className='text-xl font-semibold'>
                     {day} : {training[index]}
-                  </div>
-                </div>
+                  </p>
+                </>
               ) : (
                 <div>
                   {day} : {training[index]}
@@ -76,7 +67,13 @@ export default function CalWeight(result: any) {
               )}
               {weekWeights[currentWeek][index].map((weight, i) => (
                 <div key={i} className='flex flex-col items-center'>
-                  <div>{weight}kg</div>
+                  {today === day ? (
+                    <p className='-translate-y-[0.08rem] text-xl font-semibold'>
+                      {weight}
+                    </p>
+                  ) : (
+                    <p className='-translate-y-[0.08rem]'>{weight}</p>
+                  )}
                 </div>
               ))}
             </div>

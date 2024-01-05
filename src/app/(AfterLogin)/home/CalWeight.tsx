@@ -83,13 +83,13 @@ export default function CalWeight(result: any) {
                   {doneReps[i] === 0 ? (
                     <button
                       onClick={() => doneRepsHandler(i)}
-                      className='h-16 w-16 rounded-full bg-slate-50 text-xl font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'
+                      className='h-16 w-16 rounded-full bg-slate-50 text-xl font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
                       disabled={i > 0 && doneReps[i - 1] === 0}
                     >
                       {trainingReps[i]}
                     </button>
                   ) : (
-                    <button className='h-16 w-16 rounded-full bg-slate-700 text-xl font-medium text-white shadow-md hover:bg-slate-600 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-200'>
+                    <button className='h-16 w-16 rounded-full bg-slate-700 text-xl font-medium text-white shadow-md active:bg-slate-600 dark:bg-slate-50 dark:text-slate-900 dark:active:bg-slate-200'>
                       {trainingReps[i]}
                     </button>
                   )}
