@@ -1,4 +1,6 @@
-export default function CalWeight(result: any) {
+import clientPromise from '@/../util/db';
+
+export default async function CalWeight(result: any) {
   let oneRM = result.result[0];
 
   let TM = [oneRM.press, oneRM.squat, oneRM.bench, oneRM.deadLift].map(
@@ -33,16 +35,26 @@ export default function CalWeight(result: any) {
   // 완료한 운동은 색깔이 바뀌어야 함
   // 다음 운동 요일 전까지는 시작하기 disabled
 
-  function getDayOfWeek() {
+  let db = (await clientPromise)?.db('StartSmall');
+  let doneDays = await db?.collection('donedays').find().toArray();
+
+  // doneDays = doneDays.map((a: any) => {
+  //   a._id = a._id.toString();
+  //   return a;
+  // });
+
+  console.log(doneDays);
+
+  function getToday() {
     const week = ['일', '월', '화', '수', '목', '금', '토'];
     const today = new Date();
     const yyyymmdd = `${today.getFullYear()}-${
       today.getMonth() + 1
     }-${today.getDate()}`;
-    return week[new Date(yyyymmdd).getDay()];
+    return [yyyymmdd, week[new Date(yyyymmdd).getDay()]];
   }
 
-  let today = getDayOfWeek();
+  let today = getToday();
 
   return (
     <div className='flex w-full flex-col items-center'>
@@ -51,7 +63,7 @@ export default function CalWeight(result: any) {
         return (
           <div key={index}>
             <div className='relative m-2 flex space-x-3'>
-              {today === day ? (
+              {today[1] === day ? (
                 <>
                   <div className='absolute bottom-[0.2rem] left-[-1rem] animate-bounce-fast'>
                     🐢
@@ -67,12 +79,12 @@ export default function CalWeight(result: any) {
               )}
               {weekWeights[currentWeek][index].map((weight, i) => (
                 <div key={i} className='flex flex-col items-center'>
-                  {today === day ? (
-                    <p className='-translate-y-[0.08rem] text-xl font-semibold'>
+                  {today[1] === day ? (
+                    <p className='-translate-y-[0.05rem] text-xl font-semibold'>
                       {weight}
                     </p>
                   ) : (
-                    <p className='-translate-y-[0.08rem]'>{weight}</p>
+                    <p className='-translate-y-[0.05rem]'>{weight}</p>
                   )}
                 </div>
               ))}

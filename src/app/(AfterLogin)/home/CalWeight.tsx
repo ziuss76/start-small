@@ -1,8 +1,9 @@
 'use client';
 
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Confetti from './Confetti';
+import { DoneToday } from './DoneToday';
 
 export default function CalWeight(result: any) {
   let oneRM = result.result[0];
@@ -61,6 +62,18 @@ export default function CalWeight(result: any) {
     );
   }
 
+  const router = useRouter();
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await DoneToday();
+      router.push('/home');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // 다시 일주일 운동 목록과 중량 보여주기
   // 완료한 운동은 색깔이 바뀌어야 함
   // 다음 운동 요일 전까지는 시작하기 disabled
@@ -108,11 +121,15 @@ export default function CalWeight(result: any) {
         //   다음
         // </button>
         <div className='absolute top-full'>
-          <Link href='/home'>
-            <button className='text-md mt-4 w-32 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'>
+          <form onSubmit={handleSubmit}>
+            <button
+              type='submit'
+              className='text-md mt-4 w-32 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'
+            >
               빅토리!
             </button>
-          </Link>
+          </form>
+
           <Confetti />
         </div>
       )}
