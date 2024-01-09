@@ -6,26 +6,27 @@ import Confetti from './Confetti';
 import { DoneToday } from './DoneToday';
 
 export default function CalWeight(result: any) {
-  let oneRM = result.result[0];
+  const oneRM = result.result[0];
 
-  let TM = [oneRM.press, oneRM.squat, oneRM.bench, oneRM.deadLift].map(
+  const TM = [oneRM.press, oneRM.squat, oneRM.bench, oneRM.deadLift].map(
     (w) => w * 0.9
   );
 
-  let training = ['프레스', '스쿼트', '벤치', '데드'];
-  let trainingReps = ['5', '5', '5+', '최대'];
-  let weekOnePer = [0.65, 0.75, 0.85, 0.65];
-  let weekTwoPer = [0.7, 0.8, 0.9, 0.7];
-  let weekThreePer = [0.75, 0.85, 0.95, 0.75];
+  const training = ['프레스', '스쿼트', '벤치', '데드'];
+  const trainingReps = ['5', '5', '5+', '최대'];
+  const weekOneCoe = [0.65, 0.75, 0.85, 0.65]; // 1주차 중량 계수
+  const weekTwoCoe = [0.7, 0.8, 0.9, 0.7]; // 2주차 중량 계수
+  const weekThreeCoe = [0.75, 0.85, 0.95, 0.75]; // 3주차 중량 계수
 
-  let weekOneWeights = TM.map((w) =>
-    weekOnePer.map((per) => roundToTwoPointFive(w * per))
+  const weekOneWeights = TM.map((w) =>
+    weekOneCoe.map((per) => roundToTwoPointFive(w * per))
   );
-  let weekTwoWeights = TM.map((w) =>
-    weekTwoPer.map((per) => roundToTwoPointFive(w * per))
+
+  const weekTwoWeights = TM.map((w) =>
+    weekTwoCoe.map((per) => roundToTwoPointFive(w * per))
   );
-  let weekThreeWeights = TM.map((w) =>
-    weekThreePer.map((per) => roundToTwoPointFive(w * per))
+  const weekThreeWeights = TM.map((w) =>
+    weekThreeCoe.map((per) => roundToTwoPointFive(w * per))
   );
 
   function roundToTwoPointFive(x: number) {
@@ -53,6 +54,7 @@ export default function CalWeight(result: any) {
       setDoneReps([0, 0, 0, 0]);
     }
   }
+
   function doneRepsHandler(index: number) {
     setDoneReps(
       doneReps.map((done, i) => {
@@ -73,10 +75,6 @@ export default function CalWeight(result: any) {
       console.error(error);
     }
   };
-
-  // 다시 일주일 운동 목록과 중량 보여주기
-  // 완료한 운동은 색깔이 바뀌어야 함
-  // 다음 운동 요일 전까지는 시작하기 disabled
 
   return (
     <div className='relative flex w-full flex-col items-center'>

@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 
 export async function DoneToday() {
   const today = new Date();
+  today.setHours(today.getHours() + 9);
   const yyyymmdd = `${today.getFullYear()}-${
     today.getMonth() + 1
   }-${today.getDate()}`;
