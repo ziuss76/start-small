@@ -4,44 +4,18 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Confetti from './Confetti';
 import { DoneToday } from './DoneToday';
+import WeekWeights from './WeekWeights';
 
 export default function CalWeight(result: any) {
-  const oneRM = result.result[0];
-
-  const TM = [oneRM.press, oneRM.squat, oneRM.bench, oneRM.deadLift].map(
-    (w) => w * 0.9
-  );
-
   const training = ['프레스', '스쿼트', '벤치', '데드'];
   const trainingReps = ['5', '5', '5+', '최대'];
-  const weekOneCoe = [0.65, 0.75, 0.85, 0.65]; // 1주차 중량 계수
-  const weekTwoCoe = [0.7, 0.8, 0.9, 0.7]; // 2주차 중량 계수
-  const weekThreeCoe = [0.75, 0.85, 0.95, 0.75]; // 3주차 중량 계수
 
-  const weekOneWeights = TM.map((w) =>
-    weekOneCoe.map((per) => roundToTwoPointFive(w * per))
-  );
+  const weekWeights = WeekWeights(result);
 
-  const weekTwoWeights = TM.map((w) =>
-    weekTwoCoe.map((per) => roundToTwoPointFive(w * per))
-  );
-  const weekThreeWeights = TM.map((w) =>
-    weekThreeCoe.map((per) => roundToTwoPointFive(w * per))
-  );
-
-  function roundToTwoPointFive(x: number) {
-    return Math.round(x / 2.5) * 2.5;
-  }
-
-  const [weekWeights, setWeekWeights] = useState([
-    weekOneWeights,
-    weekTwoWeights,
-    weekThreeWeights,
-  ]);
-  const [currentWeek, setCurrentWeek] = useState(0);
   const [thisWeek, setThisWeek] = useState(['1주', '2주', '3주']);
-  const [currentDay, setCurrentDay] = useState(0);
+  const [currentWeek, setCurrentWeek] = useState(0);
   const [trainingDay, setTrainingDay] = useState(['월', '화', '목', '금']);
+  const [currentDay, setCurrentDay] = useState(0);
   const [doneReps, setDoneReps] = useState([0, 0, 0, 0]);
 
   function goNextDay() {
