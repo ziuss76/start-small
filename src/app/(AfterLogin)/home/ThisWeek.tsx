@@ -13,6 +13,7 @@ export default async function CalWeight(result: any) {
   const curDate = new Date();
   const offset = new Date().getTimezoneOffset() / 60; // -9
   curDate.setHours(curDate.getHours() - offset);
+  console.log(curDate.getUTCDay());
   // UTC 시간으로 설정
 
   const db = (await clientPromise)?.db('StartSmall');
@@ -27,14 +28,14 @@ export default async function CalWeight(result: any) {
     trainingDays.forEach((day) => {
       // 월, 화, 목, 금
       const i = week.indexOf(day); // 1, 2, 4, 5
-      const tempDate = new Date();
+      const tempDate = new Date(); // 현재 날짜 로컬 시간
 
-      tempDate.setDate(curDate.getUTCDate() - curDate.getUTCDay() + i);
+      tempDate.setDate(curDate.getDate() - curDate.getDay() + i);
       // 현재 날을 빼줘서 일요일로 만든 다음 i만큼 더해주면 월, 화, 목, 금의 날짜로 설정됨
 
-      const yyyymmdd = `${tempDate.getUTCFullYear()}-${String(
-        tempDate.getUTCMonth() + 1
-      ).padStart(2, '0')}-${String(tempDate.getUTCDate()).padStart(2, '0')}`; // YYYY-MM-DD 형식으로
+      const yyyymmdd = `${tempDate.getFullYear()}-${String(
+        tempDate.getMonth() + 1
+      ).padStart(2, '0')}-${String(tempDate.getDate()).padStart(2, '0')}`; // YYYY-MM-DD 형식으로
       thisWeekDates.push(yyyymmdd);
     });
 
@@ -68,7 +69,7 @@ export default async function CalWeight(result: any) {
   updateCurrentWeek();
 
   function getToday() {
-    return week[curDate.getUTCDay()]; // 요일 구하기
+    return week[curDate.getDay()]; // 요일 구하기
   }
   const today = getToday();
   console.log(today);
