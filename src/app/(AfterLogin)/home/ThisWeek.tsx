@@ -6,48 +6,70 @@ export default async function CalWeight(result: any) {
   const weekWeights = WeekWeights(result);
 
   const thisWeek = ['1주', '2주', '3주'];
-  const currentWeek = 0;
+  let currentWeek = 0;
   const week = ['일', '월', '화', '수', '목', '금', '토'];
   const trainingDays = ['월', '화', '목', '금'];
+
   const curDate = new Date();
+  const offset = new Date().getTimezoneOffset() / 60; // -9
+  curDate.setHours(curDate.getHours() - offset);
+  // UTC 시간으로 설정
 
   const db = (await clientPromise)?.db('StartSmall');
   const doneDays = await db?.collection('donedays').find().toArray();
-  const doneDaysDates = doneDays.map(
-    (doc) => doc.today.toISOString().split('T')[0]
+  let doneDaysDates = doneDays.map(
+    (doc) => doc.today.toISOString().split('T')[0] // Date 객체를 ISOString 형식 문자열로 변환후 날짜만 추출
   );
-
-  console.log(doneDaysDates);
 
   function getThisWeekDates() {
     const thisWeekDates: string[] = [];
 
     trainingDays.forEach((day) => {
-      const i = week.indexOf(day); // 0 ~ 6
+      // 월, 화, 목, 금
+      const i = week.indexOf(day); // 1, 2, 4, 5
       const tempDate = new Date();
 
-      tempDate.setDate(curDate.getDate() - curDate.getDay() + i);
+      tempDate.setDate(curDate.getUTCDate() - curDate.getUTCDay() + i);
+      // 현재 날을 빼줘서 일요일로 만든 다음 i만큼 더해주면 월, 화, 목, 금의 날짜로 설정됨
 
-      const yyyymmdd = `${tempDate.getFullYear()}-${String(
-        tempDate.getMonth() + 1
-      ).padStart(2, '0')}-${String(tempDate.getDate()).padStart(2, '0')}`;
-
+      const yyyymmdd = `${tempDate.getUTCFullYear()}-${String(
+        tempDate.getUTCMonth() + 1
+      ).padStart(2, '0')}-${String(tempDate.getUTCDate()).padStart(2, '0')}`; // YYYY-MM-DD 형식으로
       thisWeekDates.push(yyyymmdd);
     });
 
     return thisWeekDates;
   }
+  let thisWeekDates = getThisWeekDates();
 
-  function getToday() {
-    const yyyymmdd = `${curDate.getFullYear()}-${
-      curDate.getMonth() + 1
-    }-${curDate.getDate()}`;
-
-    return week[new Date(yyyymmdd).getDay()];
+  function updateCurrentWeek() {
+    if (doneDaysDates.length === 0) {
+      currentWeek = 0;
+      return; // 운동 기록이 없으면 1주차
+    }
+    // doneDaysDates의 마지막 날짜
+    const lastDoneDate = new Date(doneDaysDates[doneDaysDates.length - 1]);
+    // thisWeekDates의 첫 번째 날짜
+    const firstThisWeekDate = new Date(thisWeekDates[0]);
+    // 두 날짜 사이의 차이 계산
+    const diffInTime = firstThisWeekDate.getTime() - lastDoneDate.getTime();
+    // 차이를 일 단위로 변환
+    let diffInDays = diffInTime / (1000 * 3600 * 24);
+    // diffInDays가 음수면 0으로 설정
+    if (diffInDays < 0) {
+      diffInDays = 0;
+    }
+    // 주차 계산
+    currentWeek = Math.ceil(diffInDays / 7) % 3;
   }
 
-  const thisWeekDates = getThisWeekDates();
+  console.log(doneDaysDates);
   console.log(thisWeekDates);
+  updateCurrentWeek();
+
+  function getToday() {
+    return week[curDate.getUTCDay()]; // 요일 구하기
+  }
   const today = getToday();
   console.log(today);
 
@@ -58,42 +80,32 @@ export default async function CalWeight(result: any) {
         return (
           <div key={index}>
             <div className='relative m-2 flex space-x-3'>
-              {trainingDays.includes(day) ? (
-                <>
-                  {doneDaysDates.includes(thisWeekDates[index]) ? (
-                    <div className='absolute bottom-[0.2rem] left-[-1rem]'>
-                      ✅
-                    </div>
-                  ) : today === day ? (
-                    <div className='absolute bottom-[0.2rem] left-[-1rem] animate-bounce-fast'>
-                      🐢
-                    </div>
-                  ) : (
-                    ''
-                  )}
-                  {today === day ? (
-                    <p className='text-xl font-semibold'>
-                      {day} : {training[index]}
-                    </p>
-                  ) : (
-                    <p>
-                      {day} : {training[index]}
-                    </p>
-                  )}
-                </>
-              ) : (
-                <p>
-                  {day} : {training[index]}
-                </p>
-              )}
+              <>
+                {doneDaysDates.includes(thisWeekDates[index]) ? (
+                  <div className='absolute left-[-1rem]'>✅</div>
+                ) : today === day ? (
+                  <div className='absolute left-[-1rem] animate-bounce-fast'>
+                    🐢
+                  </div>
+                ) : (
+                  ''
+                )}
+                {today === day ? (
+                  <p className='text-xl font-semibold'>
+                    {day} : {training[index]}
+                  </p>
+                ) : (
+                  <p>
+                    {day} : {training[index]}
+                  </p>
+                )}
+              </>
               {weekWeights[currentWeek][index].map((weight, i) => (
                 <div key={i} className='flex flex-col items-center'>
                   {today === day ? (
-                    <p className='-translate-y-[0.05rem] text-xl font-semibold'>
-                      {weight}
-                    </p>
+                    <p className='text-xl font-semibold'>{weight}</p>
                   ) : (
-                    <p className='-translate-y-[0.05rem]'>{weight}</p>
+                    <p>{weight}</p>
                   )}
                 </div>
               ))}
