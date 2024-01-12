@@ -4,30 +4,34 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import Confetti from './Confetti';
 import { DoneToday } from './DoneToday';
-import WeekWeights from './WeekWeights';
+import GetWeekWeights from './GetWeekWeights';
+import UpdateCurWeek from './UpdateCurWeek';
 
-export default function CalWeight(result: any) {
+export default function CalWeight({
+  result,
+  today,
+  doneDaysDates,
+  thisWeekDates,
+}: {
+  result: any;
+  today: string;
+  doneDaysDates: string[];
+  thisWeekDates: string[];
+}) {
+  console.log(doneDaysDates);
+  console.log(thisWeekDates);
+
   const training = ['프레스', '스쿼트', '벤치', '데드'];
   const trainingReps = ['5', '5', '5+', '최대'];
+  const thisWeek = ['1주', '2주', '3주'];
+  const trainingDay = ['월', '화', '목', '금'];
+  const currentDay = trainingDay.indexOf(today);
+  const weekWeights = GetWeekWeights(result);
 
-  const weekWeights = WeekWeights(result);
+  let currentWeek = UpdateCurWeek(doneDaysDates, thisWeekDates);
+  console.log(currentWeek);
 
-  const [thisWeek, setThisWeek] = useState(['1주', '2주', '3주']);
-  const [currentWeek, setCurrentWeek] = useState(0);
-  const [trainingDay, setTrainingDay] = useState(['월', '화', '목', '금']);
-  const [currentDay, setCurrentDay] = useState(0);
   const [doneReps, setDoneReps] = useState([0, 0, 0, 0]);
-
-  function goNextDay() {
-    if (currentDay === 3) {
-      setCurrentWeek((currentWeek + 1) % 3);
-      setCurrentDay(0);
-      setDoneReps([0, 0, 0, 0]);
-    } else {
-      setCurrentDay(currentDay + 1);
-      setDoneReps([0, 0, 0, 0]);
-    }
-  }
 
   function doneRepsHandler(index: number) {
     setDoneReps(
@@ -86,12 +90,6 @@ export default function CalWeight(result: any) {
       })}
 
       {doneReps.includes(0) ? null : (
-        // <button
-        //   onClick={goNextDay}
-        //   className='text-md mt-4 w-24 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md hover:bg-slate-200 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-600'
-        // >
-        //   다음
-        // </button>
         <div className='absolute top-full'>
           <form onSubmit={handleSubmit}>
             <button

@@ -1,5 +1,6 @@
-export default function WeekWeights(result: any) {
-  const oneRM = result.result[0];
+export default function GetWeekWeights(result: any) {
+  let oneRM = result[0];
+
   const TM = [oneRM.press, oneRM.squat, oneRM.bench, oneRM.deadLift].map(
     (w) => w * 0.9
   );
