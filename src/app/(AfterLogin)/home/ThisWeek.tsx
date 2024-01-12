@@ -1,5 +1,11 @@
 import clientPromise from '@/../util/db';
 import WeekWeights from './WeekWeights';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.tz.setDefault('Asia/Seoul');
 
 export default async function CalWeight(result: any) {
   const training = ['프레스', '스쿼트', '벤치', '데드'];
@@ -10,16 +16,16 @@ export default async function CalWeight(result: any) {
   const week = ['일', '월', '화', '수', '목', '금', '토'];
   const trainingDays = ['월', '화', '목', '금'];
 
-  const curDate = new Date();
-  const offset = new Date().getTimezoneOffset() / 60; // -9
-  curDate.setHours(curDate.getHours() - offset);
-  console.log(curDate.getUTCDay());
-  // UTC 시간으로 설정
+  const curDate = dayjs();
+  function getToday() {
+    return week[curDate.day()]; // 요일 구하기
+  }
+  const today = getToday();
 
   const db = (await clientPromise)?.db('StartSmall');
   const doneDays = await db?.collection('donedays').find().toArray();
-  let doneDaysDates = doneDays.map(
-    (doc) => doc.today.toISOString().split('T')[0] // Date 객체를 ISOString 형식 문자열로 변환후 날짜만 추출
+  const doneDaysDates = doneDays.map(
+    (doc) => doc.today.split('T')[0] // ISOString 형식 문자열에서 날짜만 추출
   );
 
   function getThisWeekDates() {
@@ -28,14 +34,10 @@ export default async function CalWeight(result: any) {
     trainingDays.forEach((day) => {
       // 월, 화, 목, 금
       const i = week.indexOf(day); // 1, 2, 4, 5
-      const tempDate = new Date(); // 현재 날짜 로컬 시간
-
-      tempDate.setDate(curDate.getDate() - curDate.getDay() + i);
-      // 현재 날을 빼줘서 일요일로 만든 다음 i만큼 더해주면 월, 화, 목, 금의 날짜로 설정됨
-
-      const yyyymmdd = `${tempDate.getFullYear()}-${String(
-        tempDate.getMonth() + 1
-      ).padStart(2, '0')}-${String(tempDate.getDate()).padStart(2, '0')}`; // YYYY-MM-DD 형식으로
+      const tempDate = curDate.subtract(curDate.day(), 'day').add(i, 'day');
+      // subtract(dayjs(curDate).day(), 'day')는 현재 날짜에서 요일만큼 빼서 일요일로 만들고,
+      // add(i, 'day')는 일요일에 i만큼 더하여 원하는 요일로 만듬
+      const yyyymmdd = tempDate.format('YYYY-MM-DD');
       thisWeekDates.push(yyyymmdd);
     });
 
@@ -67,12 +69,6 @@ export default async function CalWeight(result: any) {
   console.log(doneDaysDates);
   console.log(thisWeekDates);
   updateCurrentWeek();
-
-  function getToday() {
-    return week[curDate.getDay()]; // 요일 구하기
-  }
-  const today = getToday();
-  console.log(today);
 
   return (
     <div className='flex w-full flex-col items-center'>
