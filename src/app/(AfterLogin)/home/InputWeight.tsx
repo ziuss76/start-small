@@ -1,17 +1,34 @@
 import clientPromise from '@/../util/db';
 import { revalidatePath } from 'next/cache';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 
 export default async function inputWeight() {
+  const session = await getServerSession(authOptions);
+  interface UserInfo {
+    user: {
+      name: string;
+      email: string;
+      image: string;
+    };
+  }
+
+  let userInfo: UserInfo | null = null;
+
+  if (session) {
+    userInfo = JSON.parse(JSON.stringify(session));
+  }
   async function handleSubmit(formData: FormData) {
     'use server';
     let shouldRedirect = false;
     try {
       let db = (await clientPromise)?.db('StartSmall');
-      await db?.collection('weights').insertOne({
-        press: Number(formData.get('press')),
-        squat: Number(formData.get('squat')),
-        bench: Number(formData.get('bench')),
-        deadLift: Number(formData.get('deadLift')),
+      await db?.collection('trainingmaxes').insertOne({
+        email: userInfo?.user.email,
+        press: Number(formData.get('press')) * 0.9,
+        squat: Number(formData.get('squat')) * 0.9,
+        bench: Number(formData.get('bench')) * 0.9,
+        deadLift: Number(formData.get('deadLift')) * 0.9,
       });
       shouldRedirect = true;
     } catch (err) {

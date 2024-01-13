@@ -7,7 +7,7 @@ import { DoneToday } from './DoneToday';
 import GetWeekWeights from './GetWeekWeights';
 import UpdateCurWeek from './UpdateCurWeek';
 
-export default function CalWeight({
+export default function TodaySets({
   result,
   today,
   doneDaysDates,
