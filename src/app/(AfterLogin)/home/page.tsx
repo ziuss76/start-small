@@ -45,7 +45,9 @@ export default async function Home() {
       </div>
       <div className='flex h-1/5 w-full flex-col items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
         {doneDaysDates.includes(curDate.format('YYYY-MM-DD')) ? (
-          <p>오늘 운동을 완료했어요!</p>
+          <p>🌱 오늘 운동을 완료했어요!</p>
+        ) : !thisWeekDates.includes(curDate.format('YYYY-MM-DD')) ? (
+          <p>😌 오늘은 쉬세요.. 회복해야 근성장합니다!</p>
         ) : (
           <>
             <p>가볍게 1~2 세트 웜업 후 시작하세요</p>
