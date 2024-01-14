@@ -1,5 +1,6 @@
 'use client';
 import { signOut } from 'next-auth/react';
+import Image from 'next/image';
 
 interface UserInfo {
   user: {
@@ -10,6 +11,8 @@ interface UserInfo {
 }
 
 export default function LogoutBtn({ userInfo }: { userInfo: UserInfo | null }) {
+  const userImage = userInfo?.user?.image || '/favicon.ico';
+
   return (
     <button
       type='submit'
@@ -20,9 +23,12 @@ export default function LogoutBtn({ userInfo }: { userInfo: UserInfo | null }) {
         }
       }}
     >
-      <img
-        src={userInfo?.user.image}
-        className='mr-1 inline-block h-[1.2rem] w-[1.2rem]'
+      <Image
+        src={userImage}
+        className='mr-1 inline-block'
+        alt='userImg'
+        width={18}
+        height={18}
       />
       <p>{userInfo?.user.name} 로그아웃</p>
     </button>

@@ -9,6 +9,10 @@ const withPWA = require('next-pwa')({
 
 module.exports = withPWA({
   // next.js config
+  images: {
+    domains: ['lh3.googleusercontent.com'], // Image 컴포넌트가 외부 URL(구글로그인)에서 이미지를 로드하기
+  },
+
   webpack(config, options) {
     config.module.rules.push({
       test: /\.mp3$/,

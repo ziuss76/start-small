@@ -18,8 +18,6 @@ export default async function ThisWeek({
   const trainingDays = ['월', '화', '목', '금'];
 
   let currentWeek = UpdateCurWeek(doneDaysDates, thisWeekDates);
-  // console.log(doneDaysDates);
-  // console.log(thisWeekDates);
 
   return (
     <div className='flex w-full flex-col items-center'>
