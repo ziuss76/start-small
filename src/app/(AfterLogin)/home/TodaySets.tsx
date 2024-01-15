@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import Confetti from './Confetti';
 import { DoneToday } from './DoneToday';
 import GetWeekWeights from './GetWeekWeights';
@@ -100,7 +100,9 @@ export default function TodaySets({
             </button>
           </form>
 
-          <Confetti />
+          <Suspense fallback={<></>}>
+            <Confetti />
+          </Suspense>
         </div>
       )}
     </div>
