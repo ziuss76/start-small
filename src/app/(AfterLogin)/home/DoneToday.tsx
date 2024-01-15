@@ -10,7 +10,7 @@ dayjs.extend(timezone);
 dayjs.tz.setDefault('Asia/Seoul');
 
 export async function DoneToday() {
-  const curDate = dayjs().format(); // ISOString 형식 문자열로 변환
+  const curDate = dayjs().tz().format(); // ISOString 형식 문자열로 변환
 
   let shouldRedirect = false;
   try {

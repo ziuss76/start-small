@@ -40,7 +40,7 @@ export default async function Home() {
   });
 
   const week = ['일', '월', '화', '수', '목', '금', '토'];
-  const curDate = dayjs();
+  const curDate = dayjs().tz();
   const today = week[curDate.day()];
 
   const doneDays = await db?.collection('donedays').find().toArray();

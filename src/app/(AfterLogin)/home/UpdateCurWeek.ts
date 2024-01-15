@@ -15,9 +15,9 @@ export default function UpdateCurWeek(
     return currentWeek; // 운동 기록이 없으면 1주차 (0 반환)
   }
   // doneDaysDates의 첫 번째 날짜
-  const firstDoneDate = dayjs(doneDaysDates[0]);
+  const firstDoneDate = dayjs(doneDaysDates[0]).tz();
   // thisWeekDates의 첫 번째 날짜
-  const firstThisWeekDate = dayjs(thisWeekDates[0]);
+  const firstThisWeekDate = dayjs(thisWeekDates[0]).tz();
   // 두 날짜 사이의 차이 계산
   const diffInTime = firstThisWeekDate.diff(firstDoneDate);
   // 차이를 주 단위로 변환

@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 
-export default async function LowerWeight() {
+export default async function LowerWeight(training: string) {
   try {
     const session = await getServerSession(authOptions);
     interface UserInfo {
@@ -24,14 +24,19 @@ export default async function LowerWeight() {
     const userEmail = userInfo?.user.email;
 
     let db = (await clientPromise)?.db('StartSmall');
+
+    const trainingMap: { [key: string]: string } = {
+      프레스: 'press',
+      스쿼트: 'squat',
+      벤치: 'bench',
+      데드: 'deadLift',
+    };
+
     await db?.collection('trainingmaxes').updateMany(
       { email: userEmail },
       {
         $mul: {
-          press: 0.9,
-          squat: 0.9,
-          bench: 0.9,
-          deadLift: 0.9,
+          [trainingMap[training]]: 0.9,
         },
       }
     );
