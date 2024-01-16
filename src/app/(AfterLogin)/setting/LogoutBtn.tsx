@@ -16,7 +16,7 @@ export default function LogoutBtn({ userInfo }: { userInfo: UserInfo | null }) {
   return (
     <button
       type='submit'
-      className='flex rounded-lg bg-slate-700 px-5 py-2.5 text-sm font-medium text-white shadow-md hover:bg-slate-600'
+      className='flex rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       onClick={() => {
         if (window.confirm('로그아웃 하시겠습니까?')) {
           signOut();

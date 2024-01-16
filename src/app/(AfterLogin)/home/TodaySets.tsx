@@ -18,9 +18,6 @@ export default function TodaySets({
   doneDaysDates: string[];
   thisWeekDates: string[];
 }) {
-  console.log(doneDaysDates);
-  console.log(thisWeekDates);
-
   const training = ['프레스', '스쿼트', '벤치', '데드'];
   const trainingReps = ['5', '5', '5+', '최대'];
   const thisWeek = ['1주', '2주', '3주'];
@@ -29,7 +26,6 @@ export default function TodaySets({
   const weekWeights = GetWeekWeights(result);
 
   let currentWeek = UpdateCurWeek(doneDaysDates, thisWeekDates);
-  console.log(currentWeek);
 
   const [doneReps, setDoneReps] = useState([0, 0, 0, 0]);
 

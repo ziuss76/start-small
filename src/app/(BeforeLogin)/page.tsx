@@ -1,4 +1,4 @@
-import LoginBtn from '../_component/LoginBtn';
+import LoginLoading from '../_component/LoginLoading';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
@@ -9,7 +9,7 @@ export default async function Login() {
   return (
     <>
       {session && session.user && redirect('/home')}
-      <LoginBtn />
+      <LoginLoading />
     </>
   );
 }

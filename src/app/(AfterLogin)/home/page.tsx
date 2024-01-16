@@ -49,8 +49,6 @@ export default async function Home() {
     (doc) => doc.today.split('T')[0] // ISOString 형식 문자열에서 날짜만 추출
   );
   let thisWeekDates = GetThisWeekDates(curDate);
-  console.log(doneDaysDates);
-  console.log(thisWeekDates);
 
   return (
     <div className='mx-3 flex h-full w-full flex-col justify-start text-center'>

@@ -16,7 +16,6 @@ import Link from 'next/link';
 
 export default function NavMenu() {
   const segment = useSelectedLayoutSegment();
-  // console.log(segment);
 
   return (
     <nav className='absolute bottom-0 flex h-20 w-full max-w-screen-md  text-center '>

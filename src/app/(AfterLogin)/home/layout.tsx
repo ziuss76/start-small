@@ -1,5 +1,3 @@
-import UseDarkMode from '@/app/_component/useDarkMode';
-
 export default async function HomeLayout({
   children,
 }: {
@@ -7,7 +5,6 @@ export default async function HomeLayout({
 }) {
   return (
     <div className='flex justify-center'>
-      <UseDarkMode />
       <div className='h-[100dvh] w-[100dvw] max-w-screen-md'>
         <div className='mb-1 h-16'>
           <div className='flex h-full w-full items-center justify-center text-center text-xl'>

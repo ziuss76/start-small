@@ -12,7 +12,7 @@ export default function LowerDown() {
       <button
         onClick={() => setDropDownActive(!dropDownActive)}
         type='submit'
-        className='rounded-lg bg-slate-700 px-5 py-2.5 text-sm font-medium text-white shadow-md hover:bg-slate-600'
+        className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       >
         <p>
           10% 낮출 종목 선택
@@ -23,16 +23,17 @@ export default function LowerDown() {
         {trainings.map((training, index) => (
           <form
             key={index}
+            className='grid gap-3'
             action={async () => {
               const confirmDelete = window.confirm(
-                `${training} TM 중량을 10% 낮추시겠습니까?\n해당 종목을 2번 이상 실패했을 때 권장합니다.`
+                `${training} 중량을 10% 낮추시겠습니까?\n해당 종목을 2번 이상 실패했을 때 권장합니다.`
               );
               if (confirmDelete) await LowerWeight(training);
             }}
           >
             <button
               type='submit'
-              className='rounded-lg bg-slate-700 px-5 py-2.5 text-sm font-medium text-white shadow-md hover:bg-slate-600'
+              className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
             >
               <p>{training}</p>
             </button>
@@ -41,11 +42,11 @@ export default function LowerDown() {
       </div>
     </div>
   ) : (
-    <div className='mb-3 flex h-16 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
+    <div className='mb-3 flex h-16 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500 '>
       <button
         onClick={() => setDropDownActive(!dropDownActive)}
         type='submit'
-        className='rounded-lg bg-slate-700 px-5 py-2.5 text-sm font-medium text-white shadow-md hover:bg-slate-600'
+        className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       >
         <p>
           10% 중량 낮추기
