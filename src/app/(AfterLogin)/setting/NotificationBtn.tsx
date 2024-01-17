@@ -24,7 +24,8 @@ export default function NotificationBtn() {
           new Notification('Test notification');
 
           // Register the service worker
-          const registration = await navigator.serviceWorker.register('/sw.js');
+          const registration =
+            await navigator.serviceWorker.register('/service-worker.js');
 
           // Subscribe to push notifications
           const subscription = await registration.pushManager.subscribe({
