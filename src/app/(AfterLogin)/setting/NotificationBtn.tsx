@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 
 export default function NotificationBtn() {
@@ -10,7 +11,7 @@ export default function NotificationBtn() {
     } else {
       setPermission(Notification.permission);
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('sw.js');
+        navigator.serviceWorker.register('/sw.js');
       }
     }
   }, []);
@@ -20,8 +21,8 @@ export default function NotificationBtn() {
       if (result === 'granted') {
         navigator.serviceWorker.ready.then((registration) => {
           registration.showNotification('Vibration Sample', {
-            body: 'Buzz!',
-            icon: '/favicon.ico',
+            body: 'Buzz! Buzz!',
+            icon: '../images/touch/chrome-touch-icon-192x192.png',
             vibrate: [200, 100, 200, 100, 200, 100, 200],
           });
         });
