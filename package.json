@@ -21,12 +21,14 @@
     "react-dom": "^18",
     "react-icons": "^4.12.0",
     "timezone": "^1.0.23",
-    "utc": "^0.1.0"
+    "utc": "^0.1.0",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/web-push": "^3.6.3",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.3",

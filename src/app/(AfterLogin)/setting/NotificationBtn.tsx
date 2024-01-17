@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react';
 
 const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY;
-const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
 
 export default function NotificationBtn() {
   const [permission, setPermission] = useState<string>();
@@ -17,18 +16,16 @@ export default function NotificationBtn() {
 
   const handleClick = async () => {
     if (Notification.permission === 'granted') {
-      new Notification('테스트');
+      new Notification('제목', { body: '내용', icon: '/favicon.ico' });
+      console.log(permission);
     } else if (Notification.permission !== 'denied') {
       Notification.requestPermission().then(async (permission) => {
         setPermission(permission);
         if (permission === 'granted') {
-          new Notification('Test notification');
+          new Notification('제목', { body: '내용', icon: '/favicon.ico' });
 
           // Register the service worker
-          const registration =
-            await navigator.serviceWorker.register('/service-worker.js');
-
-          console.log(registration);
+          const registration = await navigator.serviceWorker.register('/sw.js');
 
           // Subscribe to push notifications
           const subscription = await registration.pushManager.subscribe({
@@ -38,7 +35,13 @@ export default function NotificationBtn() {
             ),
           });
 
-          console.log(subscription);
+          await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(subscription),
+          });
         }
       });
     }
