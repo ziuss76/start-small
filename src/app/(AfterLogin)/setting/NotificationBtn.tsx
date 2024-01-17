@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 
 export default function NotificationBtn() {
@@ -10,35 +9,18 @@ export default function NotificationBtn() {
       console.log('This browser does not support desktop notification');
     } else {
       setPermission(Notification.permission);
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js');
-      }
     }
   }, []);
 
-  const showNotification = () => {
-    Notification.requestPermission().then((result) => {
-      if (result === 'granted') {
-        navigator.serviceWorker.ready.then((registration) => {
-          registration.showNotification('Vibration Sample', {
-            body: 'Buzz! Buzz!',
-            icon: '../images/touch/chrome-touch-icon-192x192.png',
-            vibrate: [200, 100, 200, 100, 200, 100, 200],
-          });
-        });
-      }
-    });
-  };
-
   const handleClick = async () => {
     if (Notification.permission === 'granted') {
-      showNotification();
+      new Notification('제목', { body: '내용', icon: '/favicon.ico' });
       console.log(permission);
     } else if (Notification.permission !== 'denied') {
       Notification.requestPermission().then(async (permission) => {
         setPermission(permission);
         if (permission === 'granted') {
-          showNotification();
+          new Notification('제목', { body: '내용', icon: '/favicon.ico' });
         }
       });
     }
