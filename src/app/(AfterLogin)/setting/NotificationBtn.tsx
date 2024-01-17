@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from 'react';
 
-export default function SettingPage() {
+const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY;
+const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
+
+export default function NotificationBtn() {
   const [permission, setPermission] = useState(Notification.permission);
 
   useEffect(() => {
@@ -11,19 +14,47 @@ export default function SettingPage() {
     }
   }, []);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (Notification.permission === 'granted') {
       new Notification('Test notification');
     } else if (Notification.permission !== 'denied') {
-      Notification.requestPermission().then((permission) => {
+      Notification.requestPermission().then(async (permission) => {
         setPermission(permission);
         if (permission === 'granted') {
           new Notification('Test notification');
+
+          // Register the service worker
+          const registration =
+            await navigator.serviceWorker.register('/service-worker.js');
+
+          // Subscribe to push notifications
+          const subscription = await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(
+              VAPID_PUBLIC_KEY as string
+            ),
+          });
+
+          console.log(subscription);
         }
       });
     }
   };
 
+  function urlBase64ToUint8Array(base64String: string) {
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding)
+      .replace(/\-/g, '+')
+      .replace(/_/g, '/');
+
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+      outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+  }
   return (
     <div>
       <button
