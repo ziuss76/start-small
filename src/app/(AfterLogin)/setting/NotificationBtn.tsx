@@ -11,7 +11,7 @@ export default function NotificationBtn() {
     } else {
       setPermission(Notification.permission);
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js');
+        navigator.serviceWorker.register('/public/service-worker.js');
       }
     }
   }, []);
