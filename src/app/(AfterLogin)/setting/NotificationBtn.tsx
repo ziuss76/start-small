@@ -1,8 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-const VAPID_PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY;
-
 export default function NotificationBtn() {
   const [permission, setPermission] = useState<string>();
 
@@ -11,56 +9,40 @@ export default function NotificationBtn() {
       console.log('This browser does not support desktop notification');
     } else {
       setPermission(Notification.permission);
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+      }
     }
   }, []);
 
+  const showNotification = () => {
+    Notification.requestPermission().then((result) => {
+      if (result === 'granted') {
+        navigator.serviceWorker.ready.then((registration) => {
+          registration.showNotification('Vibration Sample', {
+            body: 'Buzz!',
+            icon: '/favicon.ico',
+            vibrate: [200, 100, 200, 100, 200, 100, 200],
+          });
+        });
+      }
+    });
+  };
+
   const handleClick = async () => {
     if (Notification.permission === 'granted') {
-      new Notification('제목', { body: '내용', icon: '/favicon.ico' });
+      showNotification();
       console.log(permission);
     } else if (Notification.permission !== 'denied') {
       Notification.requestPermission().then(async (permission) => {
         setPermission(permission);
         if (permission === 'granted') {
-          new Notification('제목', { body: '내용', icon: '/favicon.ico' });
-
-          // Register the service worker
-          const registration = await navigator.serviceWorker.register('/sw.js');
-
-          // Subscribe to push notifications
-          const subscription = await registration.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array(
-              VAPID_PUBLIC_KEY as string
-            ),
-          });
-
-          await fetch('/api/subscribe', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(subscription),
-          });
+          showNotification();
         }
       });
     }
   };
 
-  function urlBase64ToUint8Array(base64String: string) {
-    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-    const base64 = (base64String + padding)
-      .replace(/\-/g, '+')
-      .replace(/_/g, '/');
-
-    const rawData = window.atob(base64);
-    const outputArray = new Uint8Array(rawData.length);
-
-    for (let i = 0; i < rawData.length; ++i) {
-      outputArray[i] = rawData.charCodeAt(i);
-    }
-    return outputArray;
-  }
   return (
     <div>
       <button
