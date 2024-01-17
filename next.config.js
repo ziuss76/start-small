@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const withPWA = require('next-pwa')({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development',
-  register: true,
-  scope: '/app',
+  dest: 'public', // next build시 public 폴더에 service-worker.js를 생성
+  disable: process.env.NODE_ENV === 'development', // 개발환경에서는 PWA를 사용하지 않음
+  register: true, // service-worker 자동 등록
+  scope: '/app', // PWA가 적용될 경로
   sw: 'service-worker.js',
 });
 
@@ -15,6 +15,7 @@ module.exports = withPWA({
 
   webpack(config, options) {
     config.module.rules.push({
+      // mp3 파일을 빌드할 수 있도록 설정
       test: /\.mp3$/,
       use: [
         {

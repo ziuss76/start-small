@@ -4,6 +4,7 @@ import LogoutBtn from './LogoutBtn';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
 import LowerDown from './LowerDown';
+import NotificationBtn from './NotificationBtn';
 
 export default async function Setting() {
   const session = await getServerSession(authOptions);
@@ -35,7 +36,7 @@ export default async function Setting() {
               <DarkModeBtn />
             </div>
             <div className='mb-3 flex h-16 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
-              <div>운동 시작 시간 설정 (30분 전 pwa 알림)</div>
+              <NotificationBtn />
             </div>
             <LowerDown />
             <div className='mb-3 flex h-16 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
