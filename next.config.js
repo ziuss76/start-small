@@ -2,9 +2,9 @@
 const withPWA = require('next-pwa')({
   dest: 'public', // next build시 public 폴더에 service-worker.js를 생성
   disable: process.env.NODE_ENV === 'development', // 개발환경에서는 PWA를 사용하지 않음
-  register: true, // service-worker 자동 등록
   scope: '/app', // PWA가 적용될 경로
-  sw: 'service-worker.js',
+  customWorkerDir: 'public/swCustomDir',
+  buildExcludes: [/app-build-manifest.json$/], // 기존 sw.js 파일과 함께 실행될 커스텀 서비스 워커 파일이 위치할 경로
 });
 
 module.exports = withPWA({
