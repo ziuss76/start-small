@@ -13,6 +13,7 @@ export default function NotificationBtn() {
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
       navigator.serviceWorker.ready.then((registration) => {
         setPushManager(registration.pushManager);
       });

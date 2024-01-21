@@ -1,9 +1,13 @@
 /** @type {import('next').NextConfig} */
+
+const runtimeCaching = require('next-pwa/cache');
 const withPWA = require('next-pwa')({
-  dest: 'public', // next build시 public 폴더에 service-worker.js를 생성
-  disable: process.env.NODE_ENV === 'development', // 개발환경에서는 PWA를 사용하지 않음
-  // customWorkerDir: 'public/swCustomDir',
-  // buildExcludes: [/app-build-manifest.json$/], // 기존 sw.js 파일과 함께 실행될 커스텀 서비스 워커 파일이 위치할 경로
+  dest: 'public', // next build시 public 폴더에 sw.js를 생성
+  disable: false, // 개발환경에서도 service worker를 사용함
+  register: true,
+  skipWaiting: true,
+  customWorkerDir: 'public/swCustomDir',
+  runtimeCaching,
 });
 
 module.exports = withPWA({
