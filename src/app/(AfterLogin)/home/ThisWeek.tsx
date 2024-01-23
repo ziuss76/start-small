@@ -1,5 +1,7 @@
 import GetWeekWeights from './GetWeekWeights';
 import UpdateCurWeek from './UpdateCurWeek';
+import Image from 'next/image';
+import favicon from '@/../public/icons/android-chrome-192x192.png';
 
 export default async function ThisWeek({
   result,
@@ -30,8 +32,14 @@ export default async function ThisWeek({
                 {doneDaysDates.includes(thisWeekDates[index]) ? (
                   <div className='absolute left-[-1rem]'>✅</div>
                 ) : today === day ? (
-                  <div className='absolute left-[-1rem] animate-bounce-fast'>
-                    🐢
+                  <div className='absolute bottom-[0.1rem] left-[-1.2rem] animate-bounce-fast'>
+                    <Image
+                      src={favicon}
+                      className='inline-block'
+                      alt='거북이'
+                      width={26}
+                      height={26}
+                    />
                   </div>
                 ) : (
                   ''
