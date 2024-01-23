@@ -8,7 +8,7 @@ const withPWA = require('next-pwa')({
   skipWaiting: true,
   customWorkerDir: 'public/swCustomDir',
   runtimeCaching,
-  buildExcludes: ['app-build-manifest.json'],
+  buildExcludes: ['app-build-manifest.json'], // bad-precaching-response 에러 해결 (빌드 시 임시적으로 생성되고 삭제되는 파일)
 });
 
 module.exports = withPWA({
