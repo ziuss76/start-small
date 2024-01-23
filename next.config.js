@@ -8,6 +8,7 @@ const withPWA = require('next-pwa')({
   skipWaiting: true,
   customWorkerDir: 'public/swCustomDir',
   runtimeCaching,
+  buildExcludes: ['app-build-manifest.json'],
 });
 
 module.exports = withPWA({
