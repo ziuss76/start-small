@@ -15,8 +15,8 @@ export default async function handler(
     const subscription = req.body;
 
     const payload = JSON.stringify({
-      title: 'Hello!',
-      body: 'Hello World!',
+      title: '세상에!',
+      body: '벌써 운동할 시간이군요!',
       icon: 'https://start-small-ziuss.vercel.app/icons/android-chrome-192x192.png',
     });
 
