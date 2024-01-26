@@ -36,10 +36,10 @@ export default function DarkModeBtn() {
   return darkMode ? (
     <button
       type='button'
-      className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200'
+      className='w-[10rem] rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200'
       onClick={darkModeToggle}
     >
-      ☀️ 밝은 모드로
+      ☀️ 밝은 모드로 변경
     </button>
   ) : (
     <button
@@ -47,7 +47,7 @@ export default function DarkModeBtn() {
       className='rounded-lg bg-slate-700 px-5 py-2.5 text-sm font-medium text-white shadow-md active:bg-slate-600'
       onClick={darkModeToggle}
     >
-      🌙 어두운 모드로
+      🌙 어두운 모드로 변경
     </button>
   );
 }

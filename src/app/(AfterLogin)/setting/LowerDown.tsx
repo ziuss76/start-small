@@ -12,18 +12,18 @@ export default function LowerDown() {
       <button
         onClick={() => setDropDownActive(!dropDownActive)}
         type='submit'
-        className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+        className='w-[10rem] rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       >
         <p>
-          10% 낮출 종목 선택
+          10% 중량 낮추기
           <FaAngleUp className='ml-1 inline-block h-4 w-4' />
         </p>
       </button>
-      <div className='mt-3 grid grid-cols-2 gap-3'>
+      <div className='mt-2.5 grid grid-cols-2 gap-2.5'>
         {trainings.map((training, index) => (
           <form
             key={index}
-            className='grid gap-3'
+            className='grid gap-2.5'
             action={async () => {
               const confirmDelete = window.confirm(
                 `${training} 중량을 10% 낮추시겠습니까?\n해당 종목을 2번 이상 실패했을 때 권장합니다.`
@@ -33,7 +33,7 @@ export default function LowerDown() {
           >
             <button
               type='submit'
-              className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+              className='w-[4.7rem] rounded-lg bg-slate-50 px-4 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
             >
               <p>{training}</p>
             </button>
@@ -46,7 +46,7 @@ export default function LowerDown() {
       <button
         onClick={() => setDropDownActive(!dropDownActive)}
         type='submit'
-        className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+        className='w-[10rem] rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       >
         <p>
           10% 중량 낮추기

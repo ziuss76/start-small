@@ -57,7 +57,15 @@ export default function TimePicker({
           <option value='11'>11</option>
           <option value='12'>12</option>
         </select>
-        <span className='text-lg'>:</span>
+
+        <span
+          className={`-translate-y-[0.1rem] transform text-lg ${
+            disabled && 'text-gray-300'
+          }`}
+        >
+          :
+        </span>
+
         <select
           name='minutes'
           className='text-align-last ml-1 flex-1 appearance-none bg-transparent text-center text-lg outline-none'

@@ -32,13 +32,13 @@ export default async function ThisWeek({
                 {doneDaysDates.includes(thisWeekDates[index]) ? (
                   <div className='absolute left-[-1rem]'>✅</div>
                 ) : today === day ? (
-                  <div className='absolute bottom-[0.1rem] left-[-1.2rem] animate-bounce-fast'>
+                  <div className='absolute bottom-[-0.1rem] left-[-1.5rem] animate-bounce-fast'>
                     <Image
                       src={favicon}
                       className='inline-block'
                       alt='거북이'
-                      width={26}
-                      height={26}
+                      width={32}
+                      height={32}
                     />
                   </div>
                 ) : (

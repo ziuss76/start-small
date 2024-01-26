@@ -13,9 +13,9 @@ export default function ResetBtn() {
     >
       <button
         type='submit'
-        className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+        className='w-[10rem] rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       >
-        <p>❗️ 중량 초기화</p>
+        <p>❗️ 중량 전체 초기화</p>
       </button>
     </form>
   );

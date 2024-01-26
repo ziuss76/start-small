@@ -199,9 +199,9 @@ export default function NotificationBtn({
       {!isTimePicker ? (
         <button
           onClick={showTimePicker}
-          className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+          className='w-[10rem] rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
         >
-          ⏱️ 알림 설정
+          ⏱️ 운동 갈 시간 알림
         </button>
       ) : (
         <>
@@ -214,7 +214,7 @@ export default function NotificationBtn({
             <button
               type='submit'
               onClick={(e) => handleSubmit(e)}
-              className='px-4.5 flex-1 border-r text-center'
+              className='px-4.5 flex-1 border-r border-slate-400 text-center dark:border-slate-300'
             >
               생성
             </button>
