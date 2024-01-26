@@ -35,11 +35,11 @@ export default function TimePicker({
   };
 
   return (
-    <div className='w-[10rem] rounded-lg bg-slate-50 px-5 py-1.5 text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+    <div className='w-[8.5rem] rounded-lg bg-slate-50 px-1 py-1.5 text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
       <div className='flex'>
         <select
           name='hours'
-          className='appearance-none bg-transparent text-lg outline-none'
+          className='text-align-last flex-1 appearance-none bg-transparent text-center text-lg outline-none'
           onChange={handleChange}
           disabled={disabled}
           value={selectedTime.hours}
@@ -57,10 +57,10 @@ export default function TimePicker({
           <option value='11'>11</option>
           <option value='12'>12</option>
         </select>
-        <span className='ml-2 mr-5 text-lg'>:</span>
+        <span className='text-lg'>:</span>
         <select
           name='minutes'
-          className='mr-5 appearance-none bg-transparent text-lg outline-none'
+          className='text-align-last ml-1 flex-1 appearance-none bg-transparent text-center text-lg outline-none'
           onChange={handleChange}
           disabled={disabled}
           value={selectedTime.minutes}
@@ -74,7 +74,7 @@ export default function TimePicker({
         </select>
         <select
           name='ampm'
-          className='appearance-none bg-transparent text-lg outline-none'
+          className='text-align-last mr-2 flex-1 appearance-none bg-transparent text-center text-lg outline-none'
           onChange={handleChange}
           disabled={disabled}
         >

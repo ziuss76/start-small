@@ -31,6 +31,7 @@ export default function NotificationBtn({
     ampm: 'am',
   });
   const [isAlarmSet, setIsAlarmSet] = useState(false);
+  const [isTimePicker, setIsTimePicker] = useState(false);
 
   const [applicationServerKey, setApplicationServerKey] =
     useState<Uint8Array | null>(null);
@@ -63,6 +64,31 @@ export default function NotificationBtn({
     );
   }, []);
 
+  useEffect(() => {
+    const checkExistingAlarm = async () => {
+      try {
+        const response = await fetch(
+          `/api/getSubscription?email=${userInfo?.user.email}`,
+          {
+            method: 'GET',
+          }
+        );
+        const data = await response.json();
+
+        if (data.error && data.error === 'No subscription found') {
+          setIsAlarmSet(false);
+        } else {
+          setIsAlarmSet(true);
+          setAlarmTime(convertTo12HourFormat(data.alarmTime));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    checkExistingAlarm();
+  }, []);
+
   function convertTo12HourFormat(time: string): {
     hours: string;
     minutes: string;
@@ -88,31 +114,6 @@ export default function NotificationBtn({
     };
   }
 
-  useEffect(() => {
-    const checkExistingAlarm = async () => {
-      try {
-        const response = await fetch(
-          `/api/getSubscription?email=${userInfo?.user.email}`,
-          {
-            method: 'GET',
-          }
-        );
-        const data = await response.json();
-
-        if (data.error && data.error === 'No subscription found') {
-          setIsAlarmSet(false);
-        } else {
-          setIsAlarmSet(true);
-          setAlarmTime(convertTo12HourFormat(data.alarmTime));
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    checkExistingAlarm();
-  }, [isAlarmSet]);
-
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!pushManager) {
@@ -135,6 +136,7 @@ export default function NotificationBtn({
         });
         await Subscribe(newSubscription.toJSON(), newTime);
         window.alert('알림이 생성되었습니다');
+        setIsAlarmSet(true);
       } else {
         window.alert('이미 알림이 존재합니다.');
       }
@@ -157,6 +159,7 @@ export default function NotificationBtn({
         return;
       }
       window.alert('알림을 삭제했습니다.');
+      setIsAlarmSet(false);
     } catch (error) {
       console.error(error);
       window.alert('알림 삭제에 실패했습니다.');
@@ -188,31 +191,44 @@ export default function NotificationBtn({
     setNewTime(newTime);
   };
 
+  const showTimePicker = () => {
+    setIsTimePicker(true);
+  };
   return (
     <div className='flex'>
-      <button className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
-        ⏱️ 알림 설정
-      </button>
-      <TimePicker
-        onTimeChange={handleTimeChange}
-        disabled={isAlarmSet}
-        time={alarmTime}
-      />
-      <button
-        type='submit'
-        onClick={(e) => handleSubmit(e)}
-        className='ml-2 rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
-      >
-        생성
-      </button>
+      {!isTimePicker ? (
+        <button
+          onClick={showTimePicker}
+          className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+        >
+          ⏱️ 알림 설정
+        </button>
+      ) : (
+        <>
+          <TimePicker
+            onTimeChange={handleTimeChange}
+            disabled={isAlarmSet}
+            time={alarmTime}
+          />
+          <div className='ml-2 flex w-[8.5rem] rounded-lg bg-slate-50 px-1 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+            <button
+              type='submit'
+              onClick={(e) => handleSubmit(e)}
+              className='px-4.5 flex-1 border-r text-center'
+            >
+              생성
+            </button>
 
-      <button
-        type='submit'
-        onClick={(e) => handleUnsubscribe(e)}
-        className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
-      >
-        ⏱️ 알림 삭제
-      </button>
+            <button
+              type='submit'
+              onClick={(e) => handleUnsubscribe(e)}
+              className='px-4.5 flex-1 text-center'
+            >
+              삭제
+            </button>
+          </div>
+        </>
+      )}
 
       {/* <button
         type='submit'
