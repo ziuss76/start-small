@@ -35,9 +35,7 @@ export default async function Setting() {
             <div className='mb-3 flex h-16 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
               <DarkModeBtn />
             </div>
-            <div className='mb-3 flex h-16 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
-              <NotificationBtn userInfo={userInfo} />
-            </div>
+            <NotificationBtn userInfo={userInfo} />
             <LowerDown />
             <div className='mb-3 flex h-16 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
               <div>

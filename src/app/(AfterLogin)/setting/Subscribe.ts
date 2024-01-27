@@ -31,9 +31,9 @@ export async function Subscribe(
     if (ampm === 'pm' && hoursIn24Format < 12) {
       hoursIn24Format += 12;
     } else if (ampm === 'pm' && hoursIn24Format === 12) {
-      hoursIn24Format = 0;
+      hoursIn24Format = 0; // 12시 pm = 다음날 0시
     } else if (ampm === 'am' && hoursIn24Format === 12) {
-      hoursIn24Format = 0;
+      hoursIn24Format = 12; // 12시 am = 당일 12시
     }
     return `${hoursIn24Format.toString().padStart(2, '0')}:${minutes
       .toString()

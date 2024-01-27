@@ -35,7 +35,7 @@ export default function TimePicker({
   };
 
   return (
-    <div className='w-[8.5rem] rounded-lg bg-slate-50 px-1 py-1.5 text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+    <div className='w-[10rem] rounded-lg bg-slate-50 px-1 py-1.5 text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
       <div className='flex'>
         <select
           name='hours'
@@ -60,7 +60,7 @@ export default function TimePicker({
 
         <span
           className={`-translate-y-[0.1rem] transform text-lg ${
-            disabled && 'text-gray-300'
+            disabled && 'text-green-500'
           }`}
         >
           :
@@ -85,6 +85,7 @@ export default function TimePicker({
           className='text-align-last mr-2 flex-1 appearance-none bg-transparent text-center text-lg outline-none'
           onChange={handleChange}
           disabled={disabled}
+          value={selectedTime.ampm}
         >
           <option value='am'>AM</option>
           <option value='pm'>PM</option>

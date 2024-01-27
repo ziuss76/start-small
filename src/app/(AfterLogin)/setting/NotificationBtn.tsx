@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Subscribe } from './Subscribe';
 import TimePicker from './TimePicker';
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
 
 const NEXT_PUBLIC_VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 
@@ -32,6 +33,10 @@ export default function NotificationBtn({
   });
   const [isAlarmSet, setIsAlarmSet] = useState(false);
   const [isTimePicker, setIsTimePicker] = useState(false);
+
+  const showTimePicker = () => {
+    setIsTimePicker(!isTimePicker);
+  };
 
   const [applicationServerKey, setApplicationServerKey] =
     useState<Uint8Array | null>(null);
@@ -64,28 +69,28 @@ export default function NotificationBtn({
     );
   }, []);
 
-  useEffect(() => {
-    const checkExistingAlarm = async () => {
-      try {
-        const response = await fetch(
-          `/api/getSubscription?email=${userInfo?.user.email}`,
-          {
-            method: 'GET',
-          }
-        );
-        const data = await response.json();
-
-        if (data.error && data.error === 'No subscription found') {
-          setIsAlarmSet(false);
-        } else {
-          setIsAlarmSet(true);
-          setAlarmTime(convertTo12HourFormat(data.alarmTime));
+  const checkExistingAlarm = async () => {
+    try {
+      const response = await fetch(
+        `/api/getSubscription?email=${userInfo?.user.email}`,
+        {
+          method: 'GET',
         }
-      } catch (error) {
-        console.error(error);
-      }
-    };
+      );
+      const data = await response.json();
 
+      if (data.error && data.error === 'No subscription found') {
+        setIsAlarmSet(false);
+      } else {
+        setIsAlarmSet(true);
+        setAlarmTime(convertTo12HourFormat(data.alarmTime));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
     checkExistingAlarm();
   }, []);
 
@@ -100,7 +105,7 @@ export default function NotificationBtn({
 
     if (hours === 0) {
       hours = 12;
-    } else if (hours === 12) {
+    } else if (hours === 12 && parseInt(minutes) > 0) {
       ampm = 'pm';
     } else if (hours > 12) {
       hours -= 12;
@@ -137,6 +142,7 @@ export default function NotificationBtn({
         await Subscribe(newSubscription.toJSON(), newTime);
         window.alert('알림이 생성되었습니다');
         setIsAlarmSet(true);
+        checkExistingAlarm();
       } else {
         window.alert('이미 알림이 존재합니다.');
       }
@@ -160,29 +166,19 @@ export default function NotificationBtn({
       }
       window.alert('알림을 삭제했습니다.');
       setIsAlarmSet(false);
+      const initialTime = {
+        hours: '1',
+        minutes: '0',
+        ampm: 'am',
+      };
+      setNewTime(initialTime);
+      setAlarmTime(initialTime);
     } catch (error) {
       console.error(error);
       window.alert('알림 삭제에 실패했습니다.');
     }
   };
 
-  // const pushAlarm = async (e: React.FormEvent<HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   const response = await fetch(
-  //     `/api/getSubscription?email=${userInfo?.user.email}`
-  //   );
-  //   const subscription = await response.json();
-
-  //   if (subscription) {
-  //     await fetch('/api/sendNotification', {
-  //       method: 'POST',
-  //       body: JSON.stringify(subscription),
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
-  //   }
-  // };
   const handleTimeChange = (newTime: {
     hours: string;
     minutes: string;
@@ -191,52 +187,51 @@ export default function NotificationBtn({
     setNewTime(newTime);
   };
 
-  const showTimePicker = () => {
-    setIsTimePicker(true);
-  };
-  return (
-    <div className='flex'>
-      {!isTimePicker ? (
-        <button
-          onClick={showTimePicker}
-          className='w-[10rem] rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
-        >
-          ⏱️ 운동 갈 시간 알림
-        </button>
-      ) : (
-        <>
-          <TimePicker
-            onTimeChange={handleTimeChange}
-            disabled={isAlarmSet}
-            time={alarmTime}
-          />
-          <div className='ml-2 flex w-[8.5rem] rounded-lg bg-slate-50 px-1 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
-            <button
-              type='submit'
-              onClick={(e) => handleSubmit(e)}
-              className='px-4.5 flex-1 border-r border-slate-400 text-center dark:border-slate-300'
-            >
-              생성
-            </button>
-
-            <button
-              type='submit'
-              onClick={(e) => handleUnsubscribe(e)}
-              className='px-4.5 flex-1 text-center'
-            >
-              삭제
-            </button>
-          </div>
-        </>
-      )}
-
-      {/* <button
-        type='submit'
-        className='rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
-        onClick={(e) => pushAlarm(e)}
+  return !isTimePicker ? (
+    <div className='mb-3 flex h-16 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500 '>
+      <button
+        onClick={showTimePicker}
+        className='w-[10rem] rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       >
-        알림 테스트
-      </button> */}
+        <p>
+          ⏱️ 푸시 알림 설정
+          <FaAngleDown className='ml-1 inline-block h-4 w-4' />
+        </p>
+      </button>
+    </div>
+  ) : (
+    <div className='mb-3 flex h-[10rem] w-full flex-col items-center justify-center space-y-2 rounded-lg bg-slate-300 p-3 text-center dark:bg-slate-500'>
+      <button
+        onClick={showTimePicker}
+        className='w-[10rem] rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+      >
+        <p>
+          ⏱️ 푸시 알림 설정
+          <FaAngleUp className='ml-1 inline-block h-4 w-4' />
+        </p>
+      </button>
+      <TimePicker
+        onTimeChange={handleTimeChange}
+        disabled={isAlarmSet}
+        time={alarmTime}
+      />
+      <div className='flex w-[10rem] rounded-lg bg-slate-50 px-1 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+        <button
+          type='submit'
+          onClick={(e) => handleSubmit(e)}
+          className='px-4.5 flex-1 border-r border-slate-400 text-center dark:border-slate-300'
+        >
+          생성
+        </button>
+
+        <button
+          type='submit'
+          onClick={(e) => handleUnsubscribe(e)}
+          className='px-4.5 flex-1 text-center'
+        >
+          삭제
+        </button>
+      </div>
     </div>
   );
 }

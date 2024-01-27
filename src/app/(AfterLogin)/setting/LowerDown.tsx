@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { FaAngleDown, FaAngleUp, FaArrowDown } from 'react-icons/fa6';
+import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
 import LowerWeight from './LowerWeight';
 
 export default function LowerDown() {
@@ -8,7 +8,7 @@ export default function LowerDown() {
   const trainings = ['프레스', '스쿼트', '벤치', '데드'];
 
   return dropDownActive ? (
-    <div className='mb-3 flex h-[10.5rem] w-full flex-col items-center justify-center rounded-lg bg-slate-300 p-3 text-center dark:bg-slate-500'>
+    <div className='mb-3 flex h-[10rem] w-full flex-col items-center justify-center rounded-lg bg-slate-300 p-3 text-center dark:bg-slate-500'>
       <button
         onClick={() => setDropDownActive(!dropDownActive)}
         type='submit'
@@ -19,11 +19,11 @@ export default function LowerDown() {
           <FaAngleUp className='ml-1 inline-block h-4 w-4' />
         </p>
       </button>
-      <div className='mt-2.5 grid grid-cols-2 gap-2.5'>
+      <div className='mt-2.5 grid grid-cols-2 gap-1.5'>
         {trainings.map((training, index) => (
           <form
             key={index}
-            className='grid gap-2.5'
+            className='grid gap-1.5'
             action={async () => {
               const confirmDelete = window.confirm(
                 `${training} 중량을 10% 낮추시겠습니까?\n해당 종목을 2번 이상 실패했을 때 권장합니다.`
@@ -33,7 +33,7 @@ export default function LowerDown() {
           >
             <button
               type='submit'
-              className='w-[4.7rem] rounded-lg bg-slate-50 px-4 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+              className='w-[4.8rem] rounded-lg bg-slate-50 px-4 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
             >
               <p>{training}</p>
             </button>
