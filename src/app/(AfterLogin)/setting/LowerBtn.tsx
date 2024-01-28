@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
 import LowerWeight from './LowerWeight';
 
-export default function LowerDown() {
+export default function LowerBtn() {
   const [dropDownActive, setDropDownActive] = useState(false);
   const trainings = ['프레스', '스쿼트', '벤치', '데드'];
 

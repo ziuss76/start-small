@@ -39,11 +39,12 @@ export default function TimePicker({
       <div className='flex'>
         <select
           name='hours'
-          className='text-align-last flex-1 appearance-none bg-transparent text-center text-lg outline-none'
+          className='flex-[0.95] appearance-none bg-transparent pl-1.5 text-lg outline-none'
           onChange={handleChange}
           disabled={disabled}
           value={selectedTime.hours}
         >
+          <option value='0'>0</option>
           <option value='1'>1</option>
           <option value='2'>2</option>
           <option value='3'>3</option>
@@ -68,7 +69,7 @@ export default function TimePicker({
 
         <select
           name='minutes'
-          className='text-align-last ml-1 flex-1 appearance-none bg-transparent text-center text-lg outline-none'
+          className='flex-1 appearance-none bg-transparent pl-1 text-lg outline-none'
           onChange={handleChange}
           disabled={disabled}
           value={selectedTime.minutes}
@@ -82,7 +83,7 @@ export default function TimePicker({
         </select>
         <select
           name='ampm'
-          className='text-align-last mr-2 flex-1 appearance-none bg-transparent text-center text-lg outline-none'
+          className='flex-1 appearance-none bg-transparent pr-2.5 text-lg outline-none'
           onChange={handleChange}
           disabled={disabled}
           value={selectedTime.ampm}

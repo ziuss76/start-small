@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { Subscribe } from './Subscribe';
 import TimePicker from './TimePicker';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
+import { convertTo12HourFormat } from './ConvertTime';
+import urlBase64ToUint8Array from './UrlBase64ToUnit8Array';
 
 const NEXT_PUBLIC_VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 
@@ -15,22 +17,20 @@ interface UserInfo {
   };
 }
 
+const initialTime = {
+  hours: '0',
+  minutes: '0',
+  ampm: 'am',
+};
+
 export default function NotificationBtn({
   userInfo,
 }: {
   userInfo: UserInfo | null;
 }) {
   const [pushManager, setPushManager] = useState<PushManager | null>(null);
-  const [newTime, setNewTime] = useState({
-    hours: '1',
-    minutes: '0',
-    ampm: 'am',
-  });
-  const [alarmTime, setAlarmTime] = useState({
-    hours: '1',
-    minutes: '0',
-    ampm: 'am',
-  });
+  const [newTime, setNewTime] = useState(initialTime);
+  const [alarmTime, setAlarmTime] = useState(initialTime);
   const [isAlarmSet, setIsAlarmSet] = useState(false);
   const [isTimePicker, setIsTimePicker] = useState(false);
 
@@ -49,24 +49,13 @@ export default function NotificationBtn({
       });
     }
 
-    function urlBase64ToUint8Array(base64String: string) {
-      const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-      const base64 = (base64String + padding)
-        .replace(/\-/g, '+')
-        .replace(/_/g, '/');
-
-      const rawData = window.atob(base64);
-      const outputArray = new Uint8Array(rawData.length);
-
-      for (let i = 0; i < rawData.length; ++i) {
-        outputArray[i] = rawData.charCodeAt(i);
-      }
-      return outputArray;
-    }
-
     setApplicationServerKey(
       urlBase64ToUint8Array(NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? '')
     );
+  }, []);
+
+  useEffect(() => {
+    checkExistingAlarm();
   }, []);
 
   const checkExistingAlarm = async () => {
@@ -89,35 +78,6 @@ export default function NotificationBtn({
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    checkExistingAlarm();
-  }, []);
-
-  function convertTo12HourFormat(time: string): {
-    hours: string;
-    minutes: string;
-    ampm: string;
-  } {
-    const [hours24, minutes] = time.split(':');
-    let hours = parseInt(hours24);
-    let ampm = 'am';
-
-    if (hours === 0) {
-      hours = 12;
-    } else if (hours === 12 && parseInt(minutes) > 0) {
-      ampm = 'pm';
-    } else if (hours > 12) {
-      hours -= 12;
-      ampm = 'pm';
-    }
-
-    return {
-      hours: hours.toString(),
-      minutes,
-      ampm,
-    };
-  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -166,11 +126,6 @@ export default function NotificationBtn({
       }
       window.alert('알림을 삭제했습니다.');
       setIsAlarmSet(false);
-      const initialTime = {
-        hours: '1',
-        minutes: '0',
-        ampm: 'am',
-      };
       setNewTime(initialTime);
       setAlarmTime(initialTime);
     } catch (error) {
@@ -191,7 +146,7 @@ export default function NotificationBtn({
     <div className='mb-3 flex h-16 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500 '>
       <button
         onClick={showTimePicker}
-        className='w-[10rem] rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+        className='w-[10rem] rounded-lg bg-slate-50 px-1 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       >
         <p>
           ⏱️ 푸시 알림 설정
@@ -203,7 +158,7 @@ export default function NotificationBtn({
     <div className='mb-3 flex h-[10rem] w-full flex-col items-center justify-center space-y-2 rounded-lg bg-slate-300 p-3 text-center dark:bg-slate-500'>
       <button
         onClick={showTimePicker}
-        className='w-[10rem] rounded-lg bg-slate-50 px-5 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+        className='w-[10rem] rounded-lg bg-slate-50 px-1 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       >
         <p>
           ⏱️ 푸시 알림 설정

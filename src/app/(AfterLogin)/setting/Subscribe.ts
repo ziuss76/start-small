@@ -2,6 +2,7 @@
 import clientPromise from '@/../util/db';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
+import { convertTo24HourFormat } from './ConvertTime';
 
 export async function Subscribe(
   subscription: any,
@@ -20,24 +21,6 @@ export async function Subscribe(
 
   if (session) {
     userInfo = JSON.parse(JSON.stringify(session));
-  }
-
-  function convertTo24HourFormat(
-    hours: string,
-    minutes: string,
-    ampm: string
-  ): string {
-    let hoursIn24Format = parseInt(hours);
-    if (ampm === 'pm' && hoursIn24Format < 12) {
-      hoursIn24Format += 12;
-    } else if (ampm === 'pm' && hoursIn24Format === 12) {
-      hoursIn24Format = 0; // 12시 pm = 다음날 0시
-    } else if (ampm === 'am' && hoursIn24Format === 12) {
-      hoursIn24Format = 12; // 12시 am = 당일 12시
-    }
-    return `${hoursIn24Format.toString().padStart(2, '0')}:${minutes
-      .toString()
-      .padStart(2, '0')}`;
   }
 
   try {

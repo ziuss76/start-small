@@ -3,8 +3,9 @@ import ResetBtn from './ResetBtn';
 import LogoutBtn from './LogoutBtn';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
-import LowerDown from './LowerDown';
+import LowerBtn from './LowerBtn';
 import NotificationBtn from './NotificationBtn';
+import IncreaseBtn from './IncreaseBtn';
 
 export default async function Setting() {
   const session = await getServerSession(authOptions);
@@ -36,7 +37,8 @@ export default async function Setting() {
               <DarkModeBtn />
             </div>
             <NotificationBtn userInfo={userInfo} />
-            <LowerDown />
+            <IncreaseBtn />
+            <LowerBtn />
             <div className='mb-3 flex h-16 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
               <div>
                 <ResetBtn />
