@@ -25,10 +25,14 @@ export default function TimePicker({
     setSelectedTime(time);
   }, [time]);
 
+  // 아래 handleChange 때문에 selectedTime이 수시로 바뀔 수 있어서 time !== selectedTime 일 수 있음
+  // if (time !== selectedTime) { setSelectedTime(time); }
+  // 위 조건문으로 useEffect를 대체해보려 했지만 쓸 수 밖에 없는 듯 하다
+
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newTime = {
       ...selectedTime,
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value, // computed property name 으로 연결된 키 값을 동적으로 할당
     };
     setSelectedTime(newTime);
     onTimeChange(newTime);
