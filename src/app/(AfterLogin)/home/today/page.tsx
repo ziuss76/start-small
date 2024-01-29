@@ -44,9 +44,8 @@ export default async function Home() {
   const today = week[curDate.day()];
 
   const doneDays = await db?.collection('donedays').find().toArray();
-  const doneDaysDates = doneDays.map(
-    (doc) => doc.today.split('T')[0] // ISOString 형식 문자열에서 날짜만 추출
-  );
+  const doneDaysDates = doneDays.map((doc) => doc.today);
+
   let thisWeekDates = GetThisWeekDates(curDate);
 
   return (
@@ -63,8 +62,6 @@ export default async function Home() {
           <InputWeight />
         )}
       </div>
-      {/* <div className='flex h-1/5 w-full flex-col items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
-      </div> */}
     </div>
   );
 }

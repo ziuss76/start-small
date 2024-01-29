@@ -19,8 +19,13 @@ export default function TodaySets({
   thisWeekDates: string[];
 }) {
   const training = ['프레스', '스쿼트', '벤치', '데드'];
-  const trainingReps = ['5', '5', '5+', '최대'];
-  const thisWeek = ['1주', '2주', '3주'];
+  const trainingReps = [
+    ['5', '5', '5+', '최대'],
+    ['3', '3', '3+', '최대'],
+    ['5', '3', '1+', '최대'],
+    ['5', '5', '5', '최대'],
+  ];
+  const thisWeek = ['1주', '2주', '3주', '4주'];
   const trainingDay = ['월', '화', '목', '금'];
   const currentDay = trainingDay.indexOf(today);
   const weekWeights = GetWeekWeights(result);
@@ -71,11 +76,11 @@ export default function TodaySets({
                       className='h-16 w-16 rounded-full bg-slate-50 text-xl font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
                       disabled={i > 0 && doneReps[i - 1] === 0}
                     >
-                      {trainingReps[i]}
+                      {trainingReps[currentWeek][i]}
                     </button>
                   ) : (
                     <button className='h-16 w-16 rounded-full bg-slate-700 text-xl font-medium text-white shadow-md active:bg-slate-600 dark:bg-slate-50 dark:text-slate-900 dark:active:bg-slate-200'>
-                      {trainingReps[i]}
+                      {trainingReps[currentWeek][i]}
                     </button>
                   )}
                 </div>

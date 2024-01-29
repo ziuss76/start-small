@@ -22,7 +22,7 @@ export default function UpdateCurWeek(
   const diffInTime = firstThisWeekDate.diff(firstDoneDate);
   // 차이를 주 단위로 변환
   let diffInWeeks = Math.ceil(diffInTime / (1000 * 3600 * 24 * 7));
-  // 주차 계산 (0,1,2 반복)
-  currentWeek = Math.abs(diffInWeeks % 3); // 위 나눗셈에서 -0 방지
+  // 주차 계산 (0,1,2,3 반복)
+  currentWeek = Math.abs(diffInWeeks % 4); // 위 나눗셈에서 -0 방지
   return currentWeek;
 }

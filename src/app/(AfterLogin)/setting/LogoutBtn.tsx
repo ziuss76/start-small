@@ -25,12 +25,12 @@ export default function LogoutBtn({ userInfo }: { userInfo: UserInfo | null }) {
     >
       <Image
         src={userImage}
-        className='mr-1 inline-block'
+        className='ml-1 inline-block'
         alt='userImg'
         width={18}
         height={18}
       />
-      <p>{userInfo?.user.name} 로그아웃</p>
+      <p className='ml-1'>{userInfo?.user.name} 로그아웃</p>
     </button>
   );
 }

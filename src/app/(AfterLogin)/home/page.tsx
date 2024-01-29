@@ -45,9 +45,7 @@ export default async function Home() {
   const today = week[curDate.day()];
 
   const doneDays = await db?.collection('donedays').find().toArray();
-  const doneDaysDates = doneDays.map(
-    (doc) => doc.today.split('T')[0] // ISOString 형식 문자열에서 날짜만 추출
-  );
+  const doneDaysDates = doneDays.map((doc) => doc.today);
   let thisWeekDates = GetThisWeekDates(curDate);
 
   return (
