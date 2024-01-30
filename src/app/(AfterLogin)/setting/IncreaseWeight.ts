@@ -25,7 +25,14 @@ export default async function IncreaseWeight(training: string) {
 
     let db = (await clientPromise)?.db('StartSmall');
 
-    const trainingMap: { [key: string]: string } = {
+    const trainingMap: { [key: string]: number } = {
+      프레스: 2.5,
+      스쿼트: 5,
+      벤치: 2.5,
+      데드: 5,
+    };
+
+    const fieldMap: { [key: string]: string } = {
       프레스: 'press',
       스쿼트: 'squat',
       벤치: 'bench',
@@ -35,8 +42,8 @@ export default async function IncreaseWeight(training: string) {
     await db?.collection('trainingmaxes').updateMany(
       { email: userEmail },
       {
-        $mul: {
-          [trainingMap[training]]: 1.1,
+        $inc: {
+          [fieldMap[training]]: trainingMap[training],
         },
       }
     );

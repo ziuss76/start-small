@@ -16,7 +16,7 @@ export default async function ThisWeek({
 }) {
   const training = ['프레스', '스쿼트', '벤치', '데드'];
   const weekWeights = GetWeekWeights(result);
-  const thisWeek = ['1주', '2주', '3주'];
+  const thisWeek = ['1주', '2주', '3주', '4주'];
   const trainingDays = ['월', '화', '목', '금'];
 
   let currentWeek = UpdateCurWeek(doneDaysDates, thisWeekDates);

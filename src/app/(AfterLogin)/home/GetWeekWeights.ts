@@ -5,7 +5,7 @@ export default function GetWeekWeights(result: any) {
   const weekOneCoe = [0.65, 0.75, 0.85, 0.65]; // 1주차 중량 계수
   const weekTwoCoe = [0.7, 0.8, 0.9, 0.7]; // 2주차 중량 계수
   const weekThreeCoe = [0.75, 0.85, 0.95, 0.75]; // 3주차 중량 계수
-  const weekFourCoe = [0.4, 0.5, 0.6, 0.4]; // 4주차 중량 계수
+  const weekFourCoe = [0.4, 0.5, 0.6]; // 4주차 중량 계수
 
   const weekOneWeights = TMArr.map((w) =>
     weekOneCoe.map((per) => roundToTwoPointFive(w * per))

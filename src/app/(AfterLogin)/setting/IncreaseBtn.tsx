@@ -25,9 +25,13 @@ export default function LowerDown() {
             key={index}
             className='grid gap-1.5'
             action={async () => {
-              const confirmDelete = window.confirm(
-                `${training} 중량을 10% 올리시겠습니까?\n3주동안의 트레이닝 성공시 권장합니다.`
-              );
+              let message;
+              if (['프레스', '벤치'].includes(training)) {
+                message = `${training} 중량을 2.5kg 올리시겠습니까?\n4주동안의 트레이닝 성공시 권장합니다.`;
+              } else if (['스쿼트', '데드'].includes(training)) {
+                message = `${training} 중량을 5kg 올리시겠습니까?\n4주동안의 트레이닝 성공시 권장합니다.`;
+              }
+              const confirmDelete = window.confirm(message);
               if (confirmDelete) await IncreaseWeight(training);
             }}
           >

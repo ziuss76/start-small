@@ -23,7 +23,7 @@ export default function TodaySets({
     ['5', '5', '5+', '최대'],
     ['3', '3', '3+', '최대'],
     ['5', '3', '1+', '최대'],
-    ['5', '5', '5', '최대'],
+    ['5', '5', '5'],
   ];
   const thisWeek = ['1주', '2주', '3주', '4주'];
   const trainingDay = ['월', '화', '목', '금'];
@@ -32,7 +32,9 @@ export default function TodaySets({
 
   let currentWeek = UpdateCurWeek(doneDaysDates, thisWeekDates);
 
-  const [doneReps, setDoneReps] = useState([0, 0, 0, 0]);
+  const [doneReps, setDoneReps] = useState(
+    Array(trainingReps[currentWeek].length).fill(0)
+  );
 
   function doneRepsHandler(index: number) {
     setDoneReps(

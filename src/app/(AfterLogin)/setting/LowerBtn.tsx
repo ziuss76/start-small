@@ -25,9 +25,13 @@ export default function LowerBtn() {
             key={index}
             className='grid gap-1.5'
             action={async () => {
-              const confirmDelete = window.confirm(
-                `${training} 중량을 10% 낮추시겠습니까?\n해당 종목을 2번 이상 실패했을 때 권장합니다.`
-              );
+              let message;
+              if (['프레스', '벤치'].includes(training)) {
+                message = `${training} 중량을 2.5kg 낮추시겠습니까?\n2번 이상 실패시 권장합니다.`;
+              } else if (['스쿼트', '데드'].includes(training)) {
+                message = `${training} 중량을 5kg 낮추시겠습니까?\n2번 이상 실패시 권장합니다.`;
+              }
+              const confirmDelete = window.confirm(message);
               if (confirmDelete) await LowerWeight(training);
             }}
           >
