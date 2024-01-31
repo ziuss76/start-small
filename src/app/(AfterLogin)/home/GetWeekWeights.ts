@@ -1,5 +1,5 @@
 export default function GetWeekWeights(result: any) {
-  let TM = result[0];
+  let TM = result;
   let TMArr = [TM.press, TM.squat, TM.bench, TM.deadLift];
 
   const weekOneCoe = [0.65, 0.75, 0.85, 0.65]; // 1주차 중량 계수
