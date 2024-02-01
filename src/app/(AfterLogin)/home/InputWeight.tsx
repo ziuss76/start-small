@@ -75,7 +75,7 @@ export default async function inputWeight({ curDate }: { curDate: string }) {
         />
         <button
           type='submit'
-          className='text-md mt-3 w-1/5 rounded-lg bg-slate-50 py-2 font-medium text-slate-900 shadow-md hover:bg-slate-200 focus:outline-slate-400 dark:bg-slate-700 dark:text-white dark:hover:bg-slate-700'
+          className='text-md mt-4 w-32 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
         >
           제출
         </button>
