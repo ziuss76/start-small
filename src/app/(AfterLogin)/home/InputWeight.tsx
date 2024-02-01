@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
 
-export default async function inputWeight() {
+export default async function inputWeight({ curDate }: { curDate: string }) {
   const session = await getServerSession(authOptions);
   interface UserInfo {
     user: {
@@ -29,6 +29,7 @@ export default async function inputWeight() {
         squat: Number(formData.get('squat')) * 0.9,
         bench: Number(formData.get('bench')) * 0.9,
         deadLift: Number(formData.get('deadLift')) * 0.9,
+        date: curDate,
       });
       shouldRedirect = true;
     } catch (err) {

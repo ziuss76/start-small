@@ -53,7 +53,7 @@ export default async function Home() {
             thisWeekDates={thisWeekDates}
           />
         ) : (
-          <InputWeight />
+          <InputWeight curDate={curDate.format('YYYY-MM-DD')} />
         )}
       </div>
       <div className='flex h-1/5 w-full flex-col items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
