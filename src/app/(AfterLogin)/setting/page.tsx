@@ -31,7 +31,6 @@ export default async function Setting() {
   }
 
   const curDate = dayjs().tz().format('YYYY-MM-DD');
-  console.log(curDate);
 
   return (
     <div className='flex justify-center'>

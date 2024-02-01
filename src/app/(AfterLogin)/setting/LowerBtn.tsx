@@ -6,6 +6,13 @@ import LowerWeight from './LowerWeight';
 export default function LowerBtn({ curDate }: { curDate: string }) {
   const [dropDownActive, setDropDownActive] = useState(false);
   const trainings = ['프레스', '스쿼트', '벤치', '데드', '전체 종목'];
+  const fieldMap: { [key: string]: string } = {
+    프레스: 'press',
+    스쿼트: 'squat',
+    벤치: 'bench',
+    데드: 'deadLift',
+    '전체 종목': '전체 종목',
+  };
 
   return dropDownActive ? (
     <div className='mb-3 flex h-[12.9rem] w-full flex-col items-center justify-center rounded-lg bg-slate-300 p-3 text-center dark:bg-slate-500'>
@@ -29,14 +36,14 @@ export default function LowerBtn({ curDate }: { curDate: string }) {
             action={async () => {
               let message;
               if (['프레스', '벤치'].includes(training))
-                message = `${training} 중량을 2.5kg 낮추시겠습니까?\n2번 이상 실패시 권장합니다.`;
+                message = `${training} 중량을 2.5kg 낮추시겠습니까?\n2번 이상 트레이닝 실패시 권장합니다.`;
               if (['스쿼트', '데드'].includes(training))
-                message = `${training} 중량을 5kg 낮추시겠습니까?\n2번 이상 실패시 권장합니다.`;
+                message = `${training} 중량을 5kg 낮추시겠습니까?\n2번 이상 트레이닝 실패시 권장합니다.`;
               if (training === '전체 종목')
-                message = `전체 종목 중량을 낮추시겠습니까?\n프레스와 벤치는 2.5kg, 스쿼트와 데드는 5kg가 낮춰지며\n2번 이상 실패시 권장합니다.`;
+                message = `전체 종목 중량을 낮추시겠습니까?\n프레스와 벤치는 2.5kg, 스쿼트와 데드는 5kg가 낮춰지며\n2번 이상 트레이닝 실패시 권장합니다.`;
 
               const confirmDelete = window.confirm(message);
-              if (confirmDelete) await LowerWeight(training);
+              if (confirmDelete) await LowerWeight(fieldMap[training], curDate);
             }}
           >
             <button

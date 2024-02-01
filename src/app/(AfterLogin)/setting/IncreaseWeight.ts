@@ -35,66 +35,55 @@ export default async function IncreaseWeight(
       deadLift: 5,
     };
 
+    const currentWeights = await db
+      ?.collection('trainingmaxes')
+      .find({ email: userEmail })
+      .sort({ date: -1 })
+      .limit(1)
+      .toArray();
+
+    const { _id, ...latestWeights } = currentWeights[0];
+
     let dataToInsert: { [key: string]: any } = {};
 
     if (training === '전체 종목') {
-      const currentWeights = await db
-        ?.collection('trainingmaxes')
-        .find({ email: userEmail })
-        .sort({ date: -1 })
-        .limit(1)
-        .toArray();
-      const latestWeights = currentWeights[0];
       for (const key in trainingMap) {
         dataToInsert[key] = latestWeights[key] + trainingMap[key];
       }
       dataToInsert['email'] = userEmail;
       dataToInsert['date'] = curDate;
-
-      const existingData = await db
-        ?.collection('trainingmaxes')
-        .findOne({ email: userEmail, date: curDate });
-      if (existingData) {
-        await db
-          ?.collection('trainingmaxes')
-          .updateOne(
-            { email: userEmail, date: curDate },
-            { $set: dataToInsert }
-          );
-      } else {
-        await db?.collection('trainingmaxes').insertOne(dataToInsert);
-      }
+      await updateOrInsertData(db, userEmail!, curDate, dataToInsert);
     } else {
-      const currentWeights = await db
-        ?.collection('trainingmaxes')
-        .find({ email: userEmail })
-        .sort({ date: -1 })
-        .limit(1)
-        .toArray();
-      const { _id, ...latestWeights } = currentWeights[0];
       const updatedWeights = {
         ...latestWeights,
         [training]: latestWeights[training] + trainingMap[training],
         date: curDate,
       };
-
-      const existingData = await db
-        ?.collection('trainingmaxes')
-        .findOne({ email: userEmail, date: curDate });
-      if (existingData) {
-        await db
-          ?.collection('trainingmaxes')
-          .updateOne(
-            { email: userEmail, date: curDate },
-            { $set: updatedWeights }
-          );
-      } else {
-        await db?.collection('trainingmaxes').insertOne(updatedWeights);
-      }
+      await updateOrInsertData(db, userEmail!, curDate, updatedWeights);
     }
   } catch (error) {
     console.error('중량 올리기 에러입니다: ', error);
   }
   revalidatePath('/home');
   redirect('/home'); // try 문 안에 있으면 리디렉트 에러발생
+}
+
+async function updateOrInsertData(
+  db: any,
+  userEmail: string,
+  curDate: string,
+  data: any
+) {
+  const existingData = await db
+    ?.collection('trainingmaxes')
+    .findOne({ email: userEmail, date: curDate });
+  if (existingData) {
+    // 동일 날짜 데이터가 있으면 update
+    await db
+      ?.collection('trainingmaxes')
+      .updateOne({ email: userEmail, date: curDate }, { $set: data });
+  } else {
+    // 없으면 insert
+    await db?.collection('trainingmaxes').insertOne(data);
+  }
 }

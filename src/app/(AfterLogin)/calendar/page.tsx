@@ -1,35 +1,8 @@
 import MyCalendar from './MyCalendar';
 import clientPromise from '@/../util/db';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/../pages/api/auth/[...nextauth]';
 
 export default async function Calendar() {
-  const session = await getServerSession(authOptions);
-  interface UserInfo {
-    user: {
-      name: string;
-      email: string;
-      image: string;
-    };
-  }
-
-  let userInfo: UserInfo | null = null;
-
-  if (session) {
-    userInfo = JSON.parse(JSON.stringify(session));
-  }
-  const userEmail = userInfo?.user.email;
-
   let db = (await clientPromise)?.db('StartSmall');
-  let result = await db
-    ?.collection('trainingmaxes')
-    .find({ email: userEmail })
-    .toArray();
-
-  result = result.map((a: any) => {
-    a._id = a._id.toString();
-    return a;
-  });
 
   const doneDays = await db?.collection('donedays').find().toArray();
   const doneDaysDates = doneDays.map((doc) => doc.today);
