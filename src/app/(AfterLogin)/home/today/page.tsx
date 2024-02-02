@@ -6,7 +6,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import GetThisWeekDates from '../GetThisWeekDates';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../../../pages/api/auth/[...nextauth]';
+import { authOptions } from '@/../pages/api/auth/[...nextauth]';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -28,6 +28,7 @@ export default async function Home() {
     userInfo = JSON.parse(JSON.stringify(session));
   }
   const userEmail = userInfo?.user.email;
+
   let db = (await clientPromise)?.db('StartSmall');
   let result = await db
     ?.collection('trainingmaxes')

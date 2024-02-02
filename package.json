@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^2.0.8",
+    "chart.js": "^4.4.1",
     "dayjs": "^1.11.10",
     "mongodb": "^6.3.0",
     "next": "14.0.3",
@@ -19,6 +20,7 @@
     "react": "^18",
     "react-calendar": "^4.8.0",
     "react-canvas-confetti": "^1.4.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
     "react-icons": "^4.12.0",
     "timezone": "^1.0.23",
