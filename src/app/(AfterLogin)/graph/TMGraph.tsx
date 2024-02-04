@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -20,37 +22,72 @@ ChartJS.register(
   Legend
 );
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
-  },
-};
+export default function TMGraph({ weightAndDate }: { weightAndDate: any[] }) {
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-const labels = ['January', 'February', 'March'];
+  useEffect(() => {
+    const res = document.cookie.split('; ').filter((item) => {
+      return item.includes('mode');
+    });
 
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [200, 300, 400],
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: [100, 200, 300],
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
+    if (res.length > 0) {
+      if (res[0].includes('dark')) {
+        setIsDarkMode(true);
+      }
+    }
+  }, []);
 
-export default function TMGraph() {
-  return <Bar options={options} data={data} />;
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+        labels: {
+          font: {
+            size: 15,
+          },
+          color: 'rgba(6, 182, 212, 0.9)',
+        },
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          color: isDarkMode ? 'rgb(203 213 225)' : 'rgb(30 41 59)', // slate-300, slate-800
+        },
+        ticks: {
+          font: {
+            size: 15,
+          },
+          color: 'rgba(6, 182, 212, 0.9)',
+        },
+      },
+      y: {
+        grid: {
+          color: isDarkMode ? 'rgb(203 213 225)' : 'rgb(30 41 59)', // slate-300, slate-800
+        },
+        ticks: {
+          font: {
+            size: 15,
+          },
+          color: 'rgba(6, 182, 212, 0.9)',
+        },
+      },
+    },
+  };
+
+  const labels = weightAndDate.map((item) => item.date);
+
+  const press = {
+    labels,
+    datasets: [
+      {
+        label: '프레스',
+        data: weightAndDate.map((item) => item.press),
+        backgroundColor: 'rgba(6, 182, 212, 0.9)',
+      },
+    ],
+  };
+
+  return <Bar options={options} data={press} />;
 }

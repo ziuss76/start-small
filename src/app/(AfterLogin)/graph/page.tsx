@@ -22,10 +22,12 @@ export default async function Graph() {
   let db = (await clientPromise)?.db('StartSmall');
   let result = await db
     ?.collection('trainingmaxes')
-    .find({ email: userEmail }, { sort: { date: -1 } })
+    .find({ email: userEmail }, { sort: { date: 1 } })
     .toArray();
 
-  console.log(result);
+  let weightAndDate = result.map(({ _id, email, ...rest }) => ({
+    ...rest,
+  }));
 
   const trainings = ['프레스', '스쿼트', '3대 1RM', '벤치', '데드'];
 
@@ -39,8 +41,8 @@ export default async function Graph() {
         </div>
         <div className='flex h-5/6'>
           <div className='mx-3 flex h-full w-full flex-col justify-start text-center'>
-            <div className=' mb-3 flex h-4/6 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
-              <TMGraph />
+            <div className='mb-3 flex h-4/6 w-full items-center justify-center rounded-lg bg-slate-300 px-4 text-center dark:bg-slate-500'>
+              <TMGraph weightAndDate={weightAndDate} />
             </div>
             <div className='flex h-1/5 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
               <div className='mt-2.5 grid grid-cols-3 gap-1.5'>
