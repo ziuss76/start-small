@@ -1,29 +1,12 @@
 'use server';
 import { revalidatePath } from 'next/cache';
-import clientPromise from '../../../../util/db';
 import { redirect } from 'next/navigation';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
+import { getUserAndDb } from '@/app/_component/getUserAndDb';
 
 export default async function LowerWeight(training: string, curDate: string) {
   try {
-    const session = await getServerSession(authOptions);
-    interface UserInfo {
-      user: {
-        name: string;
-        email: string;
-        image: string;
-      };
-    }
-
-    let userInfo: UserInfo | null = null;
-
-    if (session) {
-      userInfo = JSON.parse(JSON.stringify(session));
-    }
+    const { userInfo, db } = await getUserAndDb();
     const userEmail = userInfo?.user.email;
-
-    let db = (await clientPromise)?.db('StartSmall');
 
     const trainingMap: { [key: string]: number } = {
       press: 2.5,

@@ -1,34 +1,20 @@
 import DarkModeBtn from '@/app/(AfterLogin)/setting/DarkModeBtn';
 import ResetBtn from './ResetBtn';
 import LogoutBtn from './LogoutBtn';
-import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
-import { getServerSession } from 'next-auth';
 import LowerBtn from './LowerBtn';
 import NotificationBtn from './NotificationBtn';
 import IncreaseBtn from './IncreaseBtn';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import { getUserAndDb } from '@/app/_component/getUserAndDb';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault('Asia/Seoul');
 
 export default async function Setting() {
-  const session = await getServerSession(authOptions);
-  interface UserInfo {
-    user: {
-      name: string;
-      email: string;
-      image: string;
-    };
-  }
-
-  let userInfo: UserInfo | null = null;
-
-  if (session) {
-    userInfo = JSON.parse(JSON.stringify(session));
-  }
+  const { userInfo } = await getUserAndDb();
 
   const curDate = dayjs().tz().format('YYYY-MM-DD');
 

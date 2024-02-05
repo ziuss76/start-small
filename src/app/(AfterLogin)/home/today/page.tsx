@@ -1,35 +1,20 @@
-import clientPromise from '@/../util/db';
 import TodaySets from '../TodaySets';
 import InputWeight from '../InputWeight';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import GetThisWeekDates from '../GetThisWeekDates';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/../pages/api/auth/[...nextauth]';
+import { getUserAndDb } from '@/app/_component/getUserAndDb';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault('Asia/Seoul');
 
 export default async function Home() {
-  const session = await getServerSession(authOptions);
-  interface UserInfo {
-    user: {
-      name: string;
-      email: string;
-      image: string;
-    };
-  }
+  const { userInfo, db } = await getUserAndDb();
 
-  let userInfo: UserInfo | null = null;
-
-  if (session) {
-    userInfo = JSON.parse(JSON.stringify(session));
-  }
   const userEmail = userInfo?.user.email;
 
-  let db = (await clientPromise)?.db('StartSmall');
   let result = await db
     ?.collection('trainingmaxes')
     .findOne({ email: userEmail }, { sort: { date: -1 } });

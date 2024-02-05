@@ -1,28 +1,12 @@
-import clientPromise from '@/../util/db';
 import { revalidatePath } from 'next/cache';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../../pages/api/auth/[...nextauth]';
+import { getUserAndDb } from '@/app/_component/getUserAndDb';
 
 export default async function inputWeight({ curDate }: { curDate: string }) {
-  const session = await getServerSession(authOptions);
-  interface UserInfo {
-    user: {
-      name: string;
-      email: string;
-      image: string;
-    };
-  }
-
-  let userInfo: UserInfo | null = null;
-
-  if (session) {
-    userInfo = JSON.parse(JSON.stringify(session));
-  }
+  const { userInfo, db } = await getUserAndDb();
   async function handleSubmit(formData: FormData) {
     'use server';
     let shouldRedirect = false;
     try {
-      let db = (await clientPromise)?.db('StartSmall');
       await db?.collection('trainingmaxes').insertOne({
         email: userInfo?.user.email,
         press: Number(formData.get('press')) * 0.9,
