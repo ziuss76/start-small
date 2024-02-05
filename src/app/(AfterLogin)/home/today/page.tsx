@@ -1,4 +1,4 @@
-import TodaySets from '../TodaySets';
+import TodaySets from './TodaySets';
 import InputWeight from '../InputWeight';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -19,6 +19,12 @@ export default async function Home() {
     ?.collection('trainingmaxes')
     .findOne({ email: userEmail }, { sort: { date: -1 } });
 
+  let clientResult;
+
+  if (result) {
+    clientResult = { ...result, _id: result._id.toString() };
+  }
+
   const week = ['일', '월', '화', '수', '목', '금', '토'];
   const curDate = dayjs().tz();
   const today = week[curDate.day()];
@@ -33,7 +39,7 @@ export default async function Home() {
       <div className='mb-3 flex h-4/6 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
         {result ? (
           <TodaySets
-            result={result}
+            result={clientResult}
             today={today}
             doneDaysDates={doneDaysDates}
             thisWeekDates={thisWeekDates}

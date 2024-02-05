@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import Confetti from './Confetti';
-import { DoneToday } from './DoneToday';
-import GetWeekWeights from './GetWeekWeights';
-import UpdateCurWeek from './UpdateCurWeek';
+import Confetti from '../Confetti';
+import { DoneToday } from '../DoneToday';
+import GetWeekWeights from '../GetWeekWeights';
+import UpdateCurWeek from '../UpdateCurWeek';
 
 export default function TodaySets({
   result,

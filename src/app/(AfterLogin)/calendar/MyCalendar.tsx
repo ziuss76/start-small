@@ -35,7 +35,7 @@ export default function MyCalendar({
         onChange={onChange}
         value={value}
         locale='ko-KR'
-        calendarType='US'
+        calendarType='gregory'
         next2Label={null}
         prev2Label={null}
         minDetail='month'
