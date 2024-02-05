@@ -39,6 +39,8 @@ export default function TMGraph({ weightAndDate }: { weightAndDate: any[] }) {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: true,
+    aspectRatio: 1.2, // 너비 높이 = 1.2: 1
     plugins: {
       legend: {
         position: 'top' as const,

@@ -27,12 +27,14 @@ export default async function ThisWeek({
       {trainingDays.map((day, index) => {
         return (
           <div key={index}>
-            <div className='relative m-2 flex space-x-3'>
-              <>
+            <div className='m-1 flex flex-col space-x-3 space-y-2'>
+              <div className='relative'>
                 {doneDaysDates.includes(thisWeekDates[index]) ? (
-                  <div className='absolute left-[-1rem]'>✅</div>
+                  <div className='absolute bottom-[-0.01rem] left-[4.45rem]'>
+                    ✅
+                  </div>
                 ) : today === day ? (
-                  <div className='absolute bottom-[-0.1rem] left-[-1.5rem] animate-bounce-fast'>
+                  <div className='absolute bottom-[-0.12rem] left-[3.6rem] animate-bounce-fast'>
                     <Image
                       src={favicon}
                       className='inline-block'
@@ -45,29 +47,32 @@ export default async function ThisWeek({
                   ''
                 )}
                 {today === day ? (
-                  <p className='text-xl font-semibold'>
-                    {day} : {training[index]}
+                  <p className='ml-3 text-xl font-semibold'>
+                    {day} - {training[index]}
                   </p>
                 ) : (
-                  <p>
-                    {day} : {training[index]}
+                  <p className='ml-3'>
+                    {day} - {training[index]}
                   </p>
                 )}
-              </>
-              {weekWeights[currentWeek][index].map(
-                (
-                  weight: number,
-                  i: number // Add type annotations to 'weight' and 'i'
-                ) => (
-                  <div key={i} className='flex flex-col items-center'>
-                    {today === day ? (
-                      <p className='text-xl font-semibold'>{weight}</p>
-                    ) : (
-                      <p>{weight}</p>
-                    )}
-                  </div>
-                )
-              )}
+              </div>
+              <div className='flex space-x-2'>
+                {weekWeights[currentWeek][index].map(
+                  (weight: number, i: number) => (
+                    <div key={i} className='flex flex-col items-center'>
+                      {today === day ? (
+                        <div className='flex h-[3.5rem] w-[3.5rem] items-center justify-center rounded-full bg-slate-50 text-xl font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+                          {weight}
+                        </div>
+                      ) : (
+                        <div className='text-md flex h-12 w-12 items-center justify-center rounded-full bg-slate-50 font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+                          {weight}
+                        </div>
+                      )}
+                    </div>
+                  )
+                )}
+              </div>
             </div>
           </div>
         );
