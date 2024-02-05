@@ -30,11 +30,11 @@ export default async function ThisWeek({
             <div className='m-1 flex flex-col space-x-3 space-y-2'>
               <div className='relative'>
                 {doneDaysDates.includes(thisWeekDates[index]) ? (
-                  <div className='absolute bottom-[-0.01rem] left-[4.45rem]'>
+                  <div className='absolute bottom-[-0.01rem] left-[5rem]'>
                     ✅
                   </div>
                 ) : today === day ? (
-                  <div className='absolute bottom-[-0.12rem] left-[3.6rem] animate-bounce-fast'>
+                  <div className='absolute bottom-[-0.1rem] left-[4.2rem] animate-bounce-fast'>
                     <Image
                       src={favicon}
                       className='inline-block'
@@ -61,11 +61,11 @@ export default async function ThisWeek({
                   (weight: number, i: number) => (
                     <div key={i} className='flex flex-col items-center'>
                       {today === day ? (
-                        <div className='flex h-[3.5rem] w-[3.5rem] items-center justify-center rounded-full bg-slate-50 text-xl font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+                        <div className='flex h-[3.8rem] w-[3.8rem] items-center justify-center rounded-full bg-slate-50 text-xl font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
                           {weight}
                         </div>
                       ) : (
-                        <div className='text-md flex h-12 w-12 items-center justify-center rounded-full bg-slate-50 font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+                        <div className='text-md flex h-[3.4rem] w-[3.4rem] items-center justify-center rounded-full bg-slate-50 font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
                           {weight}
                         </div>
                       )}
