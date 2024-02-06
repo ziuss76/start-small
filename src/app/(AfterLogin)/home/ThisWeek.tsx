@@ -29,7 +29,7 @@ export default async function ThisWeek({
             <div className='m-2 flex flex-col items-center space-x-3 space-y-2'>
               <div className='relative'>
                 {doneDaysDates.includes(thisWeekDates[index]) ? (
-                  <div className='absolute bottom-[-0.04rem] left-[-0.75rem]'>
+                  <div className='absolute bottom-[-0.05rem] left-[-0.85rem]'>
                     ✅
                   </div>
                 ) : today === day ? (
