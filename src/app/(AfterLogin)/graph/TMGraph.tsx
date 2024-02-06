@@ -12,6 +12,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import getTrainingColor from './[training]/GetTrainingColor';
 
 ChartJS.register(
   CategoryScale,
@@ -22,7 +23,13 @@ ChartJS.register(
   Legend
 );
 
-export default function TMGraph({ weightAndDate }: { weightAndDate: any[] }) {
+export default function TMGraph({
+  weightAndDate,
+  training,
+}: {
+  weightAndDate: any[];
+  training?: string;
+}) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -37,6 +44,18 @@ export default function TMGraph({ weightAndDate }: { weightAndDate: any[] }) {
     }
   }, []);
 
+  const scalesOptions = {
+    grid: {
+      color: isDarkMode ? 'rgb(203 213 225)' : 'rgb(30 41 59)',
+    },
+    ticks: {
+      font: {
+        size: 15,
+      },
+      color: isDarkMode ? 'rgb(241 245 249)' : 'rgb(30 41 59)',
+    },
+  };
+
   const options = {
     responsive: true,
     maintainAspectRatio: true,
@@ -48,48 +67,35 @@ export default function TMGraph({ weightAndDate }: { weightAndDate: any[] }) {
           font: {
             size: 15,
           },
-          color: 'rgba(6, 182, 212, 0.9)',
+          color: isDarkMode ? 'rgb(241 245 249)' : 'rgb(30 41 59)',
         },
       },
     },
     scales: {
-      x: {
-        grid: {
-          color: isDarkMode ? 'rgb(203 213 225)' : 'rgb(30 41 59)', // slate-300, slate-800
-        },
-        ticks: {
-          font: {
-            size: 15,
-          },
-          color: 'rgba(6, 182, 212, 0.9)',
-        },
-      },
-      y: {
-        grid: {
-          color: isDarkMode ? 'rgb(203 213 225)' : 'rgb(30 41 59)', // slate-300, slate-800
-        },
-        ticks: {
-          font: {
-            size: 15,
-          },
-          color: 'rgba(6, 182, 212, 0.9)',
-        },
-      },
+      x: scalesOptions,
+      y: scalesOptions,
     },
   };
 
   const labels = weightAndDate.map((item) => item.date);
 
-  const press = {
+  const trainingMap = {
+    press: '프레스',
+    squat: '스쿼트',
+    bench: '벤치프레스',
+    deadLift: '데드리프트',
+  };
+
+  const trainingData = {
     labels,
     datasets: [
       {
-        label: '프레스',
-        data: weightAndDate.map((item) => item.press),
-        backgroundColor: 'rgba(6, 182, 212, 0.9)',
+        label: trainingMap[training! as keyof typeof trainingMap],
+        data: weightAndDate.map((item) => item[training!]),
+        backgroundColor: getTrainingColor(training!, isDarkMode),
       },
     ],
   };
 
-  return <Bar options={options} data={press} />;
+  return <Bar options={options} data={trainingData} />;
 }

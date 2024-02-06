@@ -57,9 +57,12 @@ export default async function inputWeight({ curDate }: { curDate: string }) {
           placeholder='데드 1RM의 숫자만 입력해주세요.'
           className='m-1.5 w-full rounded-lg p-2 text-slate-900 shadow-md focus:outline-slate-400'
         />
+        <p className='my-3'>
+          만약 1RM이 없다면 <br />한 번이라도 성공한 무게로 시작하세요!
+        </p>
         <button
           type='submit'
-          className='text-md mt-4 w-32 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
+          className='text-md w-32 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
         >
           제출
         </button>

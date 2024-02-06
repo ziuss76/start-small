@@ -1,5 +1,6 @@
 .react-calendar {
   width: 345px;
+  height: 345px;
   max-width: 100%;
   line-height: 1.125em;
 }

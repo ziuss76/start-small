@@ -30,18 +30,16 @@ export default function MyCalendar({
   };
 
   return (
-    <div>
-      <Calendar
-        onChange={onChange}
-        value={value}
-        locale='ko-KR'
-        calendarType='gregory'
-        next2Label={null}
-        prev2Label={null}
-        minDetail='month'
-        tileClassName={tileClassName}
-        formatDay={(locale, date) => dayjs(date).format('D')}
-      />
-    </div>
+    <Calendar
+      onChange={onChange}
+      value={value}
+      locale='ko-KR'
+      calendarType='gregory'
+      next2Label={null}
+      prev2Label={null}
+      minDetail='month'
+      tileClassName={tileClassName}
+      formatDay={(locale, date) => dayjs(date).format('D')}
+    />
   );
 }

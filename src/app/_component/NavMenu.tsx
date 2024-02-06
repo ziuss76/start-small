@@ -39,7 +39,7 @@ export default function NavMenu() {
       </Link>
       <Link
         className='flex h-full w-1/5 items-center justify-center'
-        href='/graph'
+        href='/graph/press'
       >
         <div className='mb-2 flex flex-col items-center'>
           {segment === 'graph' ? (
