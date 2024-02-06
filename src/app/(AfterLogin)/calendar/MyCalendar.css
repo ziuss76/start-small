@@ -3,6 +3,7 @@
   height: 345px;
   max-width: 100%;
   line-height: 1.125em;
+  transform: translateY(-1.5rem);
 }
 
 .react-calendar,

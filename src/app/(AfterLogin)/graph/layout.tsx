@@ -11,7 +11,7 @@ export default async function GraphLayout({
             <div>그래프</div>
           </div>
         </div>
-        <div className='flex h-[85%]'>{children}</div>
+        <div className='flex h-[88%]'>{children}</div>
       </div>
     </div>
   );
