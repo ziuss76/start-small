@@ -11,7 +11,7 @@ export default async function HomeLayout({
             <div>홈</div>
           </div>
         </div>
-        <div className='flex h-5/6'>{children}</div>
+        <div className='flex h-[85%]'>{children}</div>
       </div>
     </div>
   );

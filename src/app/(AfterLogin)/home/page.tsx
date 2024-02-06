@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import GetThisWeekDates from './GetThisWeekDates';
+import UpdateCurWeek from './UpdateCurWeek';
 import { getUserAndDb } from '@/app/_component/getUserAndDb';
 
 dayjs.extend(utc);
@@ -26,12 +27,14 @@ export default async function Home() {
   }
 
   const week = ['일', '월', '화', '수', '목', '금', '토'];
+  const thisWeek = ['1주', '2주', '3주', '4주'];
   const curDate = dayjs().tz();
   const today = week[curDate.day()];
 
   const doneDays = await db?.collection('donedays').find().toArray();
   const doneDaysDates = doneDays.map((doc) => doc.today);
   let thisWeekDates = GetThisWeekDates(curDate);
+  let currentWeek = UpdateCurWeek(doneDaysDates, thisWeekDates);
 
   return (
     <div className='mx-3 flex h-full w-full flex-col justify-start text-center'>
@@ -54,10 +57,10 @@ export default async function Home() {
           <p>😌 오늘은 쉬세요.. 회복해야 근성장합니다!</p>
         ) : (
           <>
-            <p>가볍게 1~2 세트 웜업 후 시작하세요</p>
+            <p>🔥 가볍게 1~2 세트 웜업 후 시작하세요!</p>
             <Link href='/home/today'>
               <button className='text-md mt-4 w-32 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
-                시작
+                {thisWeek[currentWeek]} 차 시작
               </button>
             </Link>
           </>

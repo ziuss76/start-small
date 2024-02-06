@@ -59,19 +59,20 @@ export default function TodaySets({
 
   return (
     <div className='relative flex w-full flex-col items-center'>
-      <div>{thisWeek[currentWeek]}</div>
       {trainingDay.map((day, index) => {
         if (index !== currentDay) return null;
 
         return (
-          <div key={index}>
-            <div>
-              {day} : {training[index]}
+          <div key={index} className='flex flex-col items-center'>
+            <div className='flex h-[2.5rem] w-[7.5rem] items-center justify-center rounded-xl bg-slate-50 text-xl font-semibold text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+              {day} - {training[index]}
             </div>
-            <div className='m-2 flex space-x-4'>
+            <div className='m-5 flex space-x-3'>
               {weekWeights[currentWeek][index].map((weight, i) => (
                 <div key={i} className='flex flex-col items-center space-y-4'>
-                  <div>{weight}kg</div>
+                  <div className='flex h-[2.3rem] w-[3.8rem] items-center justify-center rounded-xl bg-slate-50 text-lg text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+                    {weight}
+                  </div>
                   {doneReps[i] === 0 ? (
                     <button
                       onClick={() => doneRepsHandler(i)}

@@ -9,7 +9,7 @@ export default function Mind() {
             <div>명상</div>
           </div>
         </div>
-        <div className='flex h-5/6'>
+        <div className='flex h-[85%]'>
           <div className='mx-3 flex h-full w-full flex-col justify-start text-center'>
             <div className='mb-3 flex h-4/6 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
               <BreathAni />
