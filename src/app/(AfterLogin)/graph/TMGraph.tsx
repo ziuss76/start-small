@@ -27,7 +27,7 @@ export default function TMGraph({
   weightAndDate,
   training,
 }: {
-  weightAndDate: any[];
+  weightAndDate: { [x: string]: any }[] | undefined;
   training?: string;
 }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -77,7 +77,7 @@ export default function TMGraph({
     },
   };
 
-  const labels = weightAndDate.map((item) => item.date);
+  const labels = weightAndDate?.map((item) => item.date);
 
   const trainingMap = {
     press: '프레스',
@@ -91,7 +91,7 @@ export default function TMGraph({
     datasets: [
       {
         label: trainingMap[training! as keyof typeof trainingMap],
-        data: weightAndDate.map((item) => item[training!]),
+        data: weightAndDate?.map((item) => item[training!]),
         backgroundColor: getTrainingColor(training!, isDarkMode),
       },
     ],

@@ -4,6 +4,7 @@ import '../globals.css';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../../pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
+import RQProvider from '@/app/_component/RQProvider';
 
 export default async function AfterLoginLayout({
   children,
@@ -15,7 +16,9 @@ export default async function AfterLoginLayout({
     <div className='flex h-[100dvh] w-[100dvw] items-center justify-center'>
       <UseDarkMode />
       {!session && redirect('/')}
-      <div>{children}</div>
+      <RQProvider>
+        <div>{children}</div>
+      </RQProvider>
       <NavMenu />
     </div>
   );
