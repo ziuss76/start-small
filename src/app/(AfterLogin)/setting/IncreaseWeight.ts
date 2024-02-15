@@ -47,8 +47,8 @@ export default async function IncreaseWeight(
   } catch (error) {
     console.error('중량 올리기 에러입니다: ', error);
   }
-  revalidatePath('/home');
-  redirect('/home'); // try 문 안에 있으면 리디렉트 에러발생
+  revalidatePath('/graph/press');
+  redirect('/graph/press'); // try 문 안에 있으면 리디렉트 에러발생
 }
 
 async function updateOrInsertData(

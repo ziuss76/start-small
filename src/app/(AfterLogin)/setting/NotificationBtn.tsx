@@ -149,7 +149,7 @@ export default function NotificationBtn({
         className='w-[10rem] rounded-lg bg-slate-50 px-1 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       >
         <p>
-          ⏱️ 푸시 알림 설정
+          ⏱️ 푸시 알림이
           <FaAngleDown className='ml-1 inline-block h-4 w-4' />
         </p>
       </button>
@@ -161,7 +161,7 @@ export default function NotificationBtn({
         className='w-[10rem] rounded-lg bg-slate-50 px-1 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'
       >
         <p>
-          ⏱️ 푸시 알림 설정
+          ⏱️ 푸시 알림이
           <FaAngleUp className='ml-1 inline-block h-4 w-4' />
         </p>
       </button>
