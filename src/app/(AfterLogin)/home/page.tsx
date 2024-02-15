@@ -59,7 +59,7 @@ export default async function Home() {
           <>
             <p>🔥 가볍게 1~2 세트 웜업 후 시작하세요!</p>
             <Link href='/home/today'>
-              <button className='text-md mt-4 w-32 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+              <button className='text-md mt-4 w-32 rounded-lg bg-slate-50 px-3 py-2 font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
                 {thisWeek[currentWeek]} 차 시작
               </button>
             </Link>

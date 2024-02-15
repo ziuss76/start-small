@@ -1,6 +1,7 @@
 import clientPromise from '@/../util/db';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/../pages/api/auth/[...nextauth]';
+import { cache } from 'react';
 
 interface UserInfo {
   user: {
@@ -10,7 +11,7 @@ interface UserInfo {
   };
 }
 
-export async function getUserAndDb() {
+export const getUserAndDb = cache(async () => {
   const session = await getServerSession(authOptions);
   let userInfo: UserInfo | null = null;
 
@@ -20,4 +21,4 @@ export async function getUserAndDb() {
   let db = (await clientPromise)?.db('StartSmall');
 
   return { userInfo, db };
-}
+});
