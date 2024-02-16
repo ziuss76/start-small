@@ -1,6 +1,6 @@
 import clientPromise from '@/../util/db';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/routes';
+import authOptions from '@/app/api/auth/[...nextauth]/authOptions';
 
 interface UserInfo {
   user: {
