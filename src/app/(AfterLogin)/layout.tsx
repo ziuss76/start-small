@@ -2,7 +2,7 @@ import UseDarkMode from '@/app/_component/useDarkMode';
 import NavMenu from '../_component/NavMenu';
 import '../globals.css';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../../pages/api/auth/[...nextauth]';
+import { authOptions } from '@/app/api/auth/[...nextauth]/routes';
 import { redirect } from 'next/navigation';
 
 export default async function AfterLoginLayout({

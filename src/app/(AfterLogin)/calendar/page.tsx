@@ -1,8 +1,8 @@
 import MyCalendar from './MyCalendar';
-import clientPromise from '@/../util/db';
+import { getUserAndDb } from '@/app/_component/getUserAndDb';
 
 export default async function Calendar() {
-  let db = (await clientPromise)?.db('StartSmall');
+  const { db } = await getUserAndDb();
 
   const doneDays = await db?.collection('donedays').find().toArray();
   const doneDaysDates = doneDays.map((doc) => doc.today);

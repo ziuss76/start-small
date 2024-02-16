@@ -1,6 +1,7 @@
 import GraphBtn from '../GraphBtn';
 import TMGraph from '../TMGraph';
 import { getUserAndDb } from '@/app/_component/getUserAndDb';
+import { cache } from 'react';
 
 export default async function Graph({
   params,
@@ -8,17 +9,23 @@ export default async function Graph({
   params: { training: string };
 }) {
   const { userInfo, db } = await getUserAndDb();
-  const userEmail = userInfo?.user.email;
-  const training = params.training;
+  const userEmail: string | undefined = userInfo?.user.email;
+  const training: string = params.training;
 
-  let result = await db
-    ?.collection('trainingmaxes')
-    .find({ email: userEmail }, { sort: { date: 1 } })
-    .toArray();
+  const getWeightAndDate = cache(async () => {
+    let result = await db
+      ?.collection('trainingmaxes')
+      .find({ email: userEmail }, { sort: { date: 1 } })
+      .toArray();
 
-  let weightAndDate = result.map(({ _id, email, ...rest }) => ({
-    ...rest,
-  }));
+    let weightAndDate = result.map(({ _id, email, ...rest }: any) => ({
+      ...rest,
+    }));
+
+    return weightAndDate;
+  });
+
+  const weightAndDate = await getWeightAndDate();
 
   return (
     <div className='mx-3 flex h-full w-full flex-col justify-start text-center'>

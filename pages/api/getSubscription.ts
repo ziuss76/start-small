@@ -6,8 +6,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === 'GET') {
-    const db = (await clientPromise)?.db('StartSmall');
-    const collection = db?.collection('subscriptions');
+    const db = (await clientPromise)?.db('StartSmall'); // 새로운 요청으로 새 인스턴스가 생성됨
+    const collection = db?.collection('subscriptions'); // cache(getUserAndDb) 불러오기 불가능
 
     const { email } = req.query;
 
