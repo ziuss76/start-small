@@ -2,10 +2,16 @@ import MyCalendar from './MyCalendar';
 import { getUserAndDb } from '@/app/_component/getUserAndDb';
 
 export default async function Calendar() {
-  const { db } = await getUserAndDb();
+  const { db, userInfo } = await getUserAndDb();
+  const userEmail = userInfo?.user.email;
 
-  const doneDays = await db?.collection('donedays').find().toArray();
+  const doneDays = await db
+    ?.collection('donedays')
+    .find({ email: userEmail })
+    .toArray();
+
   const doneDaysDates = doneDays.map((doc) => doc.today);
+
   return (
     <div className='flex justify-center'>
       <div className='h-[100dvh] w-[100dvw] max-w-screen-md'>
