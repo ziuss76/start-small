@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
-import IncreaseWeight from './IncreaseWeight';
+import IncreaseWeight from './_component/increaseWeight';
 
 export default function LowerDown({ curDate }: { curDate: string }) {
   const [dropDownActive, setDropDownActive] = useState(false);

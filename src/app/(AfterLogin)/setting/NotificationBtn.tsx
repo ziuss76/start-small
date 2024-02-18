@@ -1,11 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Subscribe } from './Subscribe';
 import TimePicker from './TimePicker';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
-import { convertTo12HourFormat } from './ConvertTime';
-import urlBase64ToUint8Array from './UrlBase64ToUnit8Array';
+import urlBase64ToUint8Array from './_component/urlBase64ToUnit8Array';
+import { checkExistingAlarm } from './_component/checkExistingAlarm';
+import {
+  handleSubscribe,
+  handleUnsubscribe,
+} from './_component/handleSubAndUnsub';
 
 const NEXT_PUBLIC_VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 
@@ -55,84 +58,8 @@ export default function NotificationBtn({
   }, []);
 
   useEffect(() => {
-    checkExistingAlarm();
-  }, []);
-
-  const checkExistingAlarm = async () => {
-    try {
-      const response = await fetch(
-        `/api/getSubscription?email=${userInfo?.user.email}`,
-        {
-          method: 'GET',
-        }
-      );
-      const data = await response.json();
-
-      if (data.error && data.error === 'No subscription found') {
-        setIsAlarmSet(false);
-      } else {
-        setIsAlarmSet(true);
-        setAlarmTime(convertTo12HourFormat(data.alarmTime));
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (!pushManager) {
-      console.log('Push Manager is not available.');
-      return;
-    }
-    try {
-      const response = await fetch(
-        `/api/getSubscription?email=${userInfo?.user.email}`,
-        {
-          method: 'GET',
-        }
-      );
-      const data = await response.json();
-
-      if (data.error && data.error === 'No subscription found') {
-        const newSubscription = await pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: applicationServerKey,
-        });
-        await Subscribe(newSubscription.toJSON(), newTime);
-        window.alert('알림이 생성되었습니다');
-        setIsAlarmSet(true);
-        checkExistingAlarm();
-      } else {
-        window.alert('이미 알림이 존재합니다.');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleUnsubscribe = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        `/api/unSubscribe?email=${userInfo?.user.email}`,
-        {
-          method: 'DELETE',
-        }
-      );
-      if (!response.ok) {
-        window.alert('삭제할 알림이 없습니다.');
-        return;
-      }
-      window.alert('알림을 삭제했습니다.');
-      setIsAlarmSet(false);
-      setNewTime(initialTime);
-      setAlarmTime(initialTime);
-    } catch (error) {
-      console.error(error);
-      window.alert('알림 삭제에 실패했습니다.');
-    }
-  };
+    checkExistingAlarm(userInfo, setIsAlarmSet, setAlarmTime);
+  }, [userInfo, setIsAlarmSet, setAlarmTime]);
 
   const handleTimeChange = (newTime: {
     hours: string;
@@ -173,7 +100,17 @@ export default function NotificationBtn({
       <div className='flex w-[10rem] rounded-lg bg-slate-50 px-1 py-2.5 text-sm font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
         <button
           type='submit'
-          onClick={(e) => handleSubmit(e)}
+          onClick={(e) =>
+            handleSubscribe(
+              e,
+              pushManager,
+              applicationServerKey,
+              userInfo,
+              newTime,
+              setIsAlarmSet,
+              setAlarmTime
+            )
+          }
           className='px-4.5 flex-1 border-r border-slate-400 text-center dark:border-slate-300'
         >
           생성
@@ -181,7 +118,16 @@ export default function NotificationBtn({
 
         <button
           type='submit'
-          onClick={(e) => handleUnsubscribe(e)}
+          onClick={(e) =>
+            handleUnsubscribe(
+              e,
+              userInfo,
+              setIsAlarmSet,
+              setNewTime,
+              setAlarmTime,
+              initialTime
+            )
+          }
           className='px-4.5 flex-1 text-center'
         >
           삭제

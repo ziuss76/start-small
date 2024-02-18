@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getUserAndDb } from '@/app/_component/getUserAndDb';
 
-export default async function ResetWeight() {
+export default async function resetWeight() {
   try {
     const { userInfo, db } = await getUserAndDb();
     const userEmail = userInfo?.user.email;

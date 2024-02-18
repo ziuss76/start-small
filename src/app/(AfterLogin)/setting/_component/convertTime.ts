@@ -1,8 +1,10 @@
-function convertTo12HourFormat(time: string): {
+export const convertTo12HourFormat = (
+  time: string
+): {
   hours: string;
   minutes: string;
   ampm: string;
-} {
+} => {
   const [hours24, minutes] = time.split(':');
   let hours = parseInt(hours24);
   let ampm = 'am';
@@ -23,13 +25,13 @@ function convertTo12HourFormat(time: string): {
     minutes,
     ampm,
   };
-}
+};
 
-function convertTo24HourFormat(
+export const convertTo24HourFormat = (
   hours: string,
   minutes: string,
   ampm: string
-): string {
+): string => {
   let hoursIn24Format = parseInt(hours);
   if (ampm === 'pm' && hoursIn24Format < 12) {
     hoursIn24Format += 12;
@@ -41,6 +43,4 @@ function convertTo24HourFormat(
   return `${hoursIn24Format.toString().padStart(2, '0')}:${minutes
     .toString()
     .padStart(2, '0')}`;
-}
-
-export { convertTo12HourFormat, convertTo24HourFormat };
+};

@@ -1,8 +1,8 @@
 'use server';
-import { convertTo24HourFormat } from './ConvertTime';
+import { convertTo24HourFormat } from './convertTime';
 import { getUserAndDb } from '@/app/_component/getUserAndDb';
 
-export async function Subscribe(
+export async function subscribe(
   subscription: any,
   newTime: { hours: string; minutes: string; ampm: string }
 ) {

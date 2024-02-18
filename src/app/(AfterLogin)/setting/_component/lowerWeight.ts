@@ -3,7 +3,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { getUserAndDb } from '@/app/_component/getUserAndDb';
 
-export default async function LowerWeight(training: string, curDate: string) {
+export default async function lowerWeight(training: string, curDate: string) {
   try {
     const { userInfo, db } = await getUserAndDb();
     const userEmail = userInfo?.user.email;

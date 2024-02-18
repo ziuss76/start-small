@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
-import LowerWeight from './LowerWeight';
+import lowerWeight from './_component/lowerWeight';
 
 export default function LowerBtn({ curDate }: { curDate: string }) {
   const [dropDownActive, setDropDownActive] = useState(false);
@@ -43,7 +43,7 @@ export default function LowerBtn({ curDate }: { curDate: string }) {
                 message = `전체 종목 중량을 낮추시겠습니까?\n프레스와 벤치는 2.5kg, 스쿼트와 데드는 5kg가 낮춰지며\n2번 이상 트레이닝 실패시 권장합니다.`;
 
               const confirmDelete = window.confirm(message);
-              if (confirmDelete) await LowerWeight(fieldMap[training], curDate);
+              if (confirmDelete) await lowerWeight(fieldMap[training], curDate);
             }}
           >
             <button

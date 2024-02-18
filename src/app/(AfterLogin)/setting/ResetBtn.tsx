@@ -1,5 +1,5 @@
 'use client';
-import ResetWeight from './ResetWeight';
+import resetWeight from './_component/resetWeight';
 
 export default function ResetBtn() {
   return (
@@ -8,7 +8,7 @@ export default function ResetBtn() {
         const confirmDelete = window.confirm(
           '중량 데이터를 모두 삭제하시겠습니까?'
         );
-        if (confirmDelete) await ResetWeight();
+        if (confirmDelete) await resetWeight();
       }}
     >
       <button
