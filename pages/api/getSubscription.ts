@@ -11,11 +11,13 @@ export default async function handler(
 
     const { email } = req.query;
 
-    const subscription = await collection?.findOne({ userEmail: email });
+    const subscription = await collection?.findOne(
+      { userEmail: email },
+      { projection: { endpoint: 1, keys: 1, alarmTime: 1 } }
+    );
 
     if (subscription) {
-      const { _id, userEmail, ...subscriptionWithoutIdandEmail } = subscription;
-      res.status(200).json(subscriptionWithoutIdandEmail);
+      res.status(200).json(subscription);
     } else {
       res.status(404).json({ error: 'No subscription found' });
     }
@@ -23,3 +25,7 @@ export default async function handler(
     res.status(405).json({ error: 'Method not allowed' });
   }
 }
+
+// 동일한 프로젝션에서 포함(inclusion)과 제외(exclusion)를 동시에 사용할 수 없음
+// _id 필드는 예외적으로 제외할 수 있지만, 그 외의 필드는 포함과 제외를 동시에 사용할 수 없음
+// 따라서 위처럼 필요한 필드만 포함하도록 수정
