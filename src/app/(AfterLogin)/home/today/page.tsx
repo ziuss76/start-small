@@ -17,13 +17,10 @@ export default async function Home() {
 
   let result = await db
     ?.collection('trainingmaxes')
-    .findOne({ email: userEmail }, { sort: { date: -1 } });
-
-  let clientResult;
-
-  if (result) {
-    clientResult = { ...result, _id: result._id.toString() };
-  }
+    .findOne(
+      { email: userEmail },
+      { projection: { _id: 0 }, sort: { date: -1 } }
+    );
 
   const week = ['일', '월', '화', '수', '목', '금', '토'];
   const curDate = dayjs().tz();
@@ -39,7 +36,7 @@ export default async function Home() {
       <div className='mb-3 flex h-4/6 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
         {result ? (
           <TodaySets
-            result={clientResult}
+            result={result}
             today={today}
             doneDaysDates={doneDaysDates}
             thisWeekDates={thisWeekDates}
