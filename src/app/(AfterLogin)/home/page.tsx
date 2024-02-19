@@ -26,9 +26,12 @@ export default async function Home() {
   const week = ['일', '월', '화', '수', '목', '금', '토'];
   const thisWeek = ['1주', '2주', '3주', '4주'];
   const curDate = dayjs().tz();
-  const today = week[curDate.day()];
+  const today = week[curDate.day()]; // 요일
 
-  const doneDays = await db?.collection('donedays').find().toArray();
+  const doneDays = await db
+    ?.collection('donedays')
+    .find({ email: userEmail })
+    .toArray();
   const doneDaysDates = doneDays.map((doc) => doc.today);
   let thisWeekDates = getThisWeekDates(curDate);
   let currentWeek = updateCurWeek(doneDaysDates, thisWeekDates);

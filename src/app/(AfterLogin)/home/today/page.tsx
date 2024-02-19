@@ -26,7 +26,10 @@ export default async function Home() {
   const curDate = dayjs().tz();
   const today = week[curDate.day()];
 
-  const doneDays = await db?.collection('donedays').find().toArray();
+  const doneDays = await db
+    ?.collection('donedays')
+    .find({ email: userEmail })
+    .toArray();
   const doneDaysDates = doneDays.map((doc) => doc.today);
 
   let thisWeekDates = getThisWeekDates(curDate);
