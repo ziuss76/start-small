@@ -25,6 +25,7 @@ export async function DoneToday() {
     if (!existingDocument) {
       await collection?.insertOne({
         today: curDate,
+        email: userEmail,
       });
       shouldRedirect = true;
     }
