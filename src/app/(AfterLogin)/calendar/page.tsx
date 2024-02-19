@@ -1,5 +1,5 @@
 import MyCalendar from './MyCalendar';
-import { getUserAndDb } from '@/app/_component/getUserAndDb';
+import { getUserAndDb } from '@/app/_function/getUserAndDb';
 
 export default async function Calendar() {
   const { db, userInfo } = await getUserAndDb();

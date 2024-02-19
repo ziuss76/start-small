@@ -1,5 +1,5 @@
-import GetWeekWeights from './GetWeekWeights';
-import UpdateCurWeek from './UpdateCurWeek';
+import getWeekWeights from '../_function/getWeekWeights';
+import updateCurWeek from '../_function/updateCurWeek';
 import Image from 'next/image';
 import favicon from '@/../public/icons/android-chrome-192x192.png';
 
@@ -15,11 +15,11 @@ export default async function ThisWeek({
   thisWeekDates: string[];
 }) {
   const training = ['프레스', '스쿼트', '벤치', '데드'];
-  const weekWeights = GetWeekWeights(result);
+  const weekWeights = getWeekWeights(result);
 
   const trainingDays = ['월', '화', '목', '금'];
 
-  let currentWeek = UpdateCurWeek(doneDaysDates, thisWeekDates);
+  let currentWeek = updateCurWeek(doneDaysDates, thisWeekDates);
 
   return (
     <div className='flex w-full flex-col items-center'>

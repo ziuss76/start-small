@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react';
 import TimePicker from './TimePicker';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
-import urlBase64ToUint8Array from './_component/urlBase64ToUnit8Array';
-import { checkExistingAlarm } from './_component/checkExistingAlarm';
+import urlBase64ToUint8Array from '../_function/urlBase64ToUnit8Array';
+import { checkExistingAlarm } from '../_function/checkExistingAlarm';
 import {
   handleSubscribe,
   handleUnsubscribe,
-} from './_component/handleSubAndUnsub';
+} from '../_function/handleSubAndUnsub';
 
 const NEXT_PUBLIC_VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
 

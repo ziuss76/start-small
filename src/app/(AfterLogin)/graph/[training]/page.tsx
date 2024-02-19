@@ -1,6 +1,6 @@
-import GraphBtn from '../GraphBtn';
-import TMGraph from '../TMGraph';
-import { getUserAndDb } from '@/app/_component/getUserAndDb';
+import GraphBtn from '../_component/GraphBtn';
+import TMGraph from '../_component/TMGraph';
+import { getUserAndDb } from '@/app/_function/getUserAndDb';
 import { cache } from 'react';
 
 export default async function Graph({

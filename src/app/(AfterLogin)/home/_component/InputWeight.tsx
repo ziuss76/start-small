@@ -1,5 +1,5 @@
 import { revalidatePath } from 'next/cache';
-import { getUserAndDb } from '@/app/_component/getUserAndDb';
+import { getUserAndDb } from '@/app/_function/getUserAndDb';
 
 export default async function inputWeight({ curDate }: { curDate: string }) {
   const { userInfo, db } = await getUserAndDb();

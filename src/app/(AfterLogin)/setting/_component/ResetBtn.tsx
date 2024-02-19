@@ -1,5 +1,5 @@
 'use client';
-import resetWeight from './_component/resetWeight';
+import resetWeight from '../_function/resetWeight';
 
 export default function ResetBtn() {
   return (

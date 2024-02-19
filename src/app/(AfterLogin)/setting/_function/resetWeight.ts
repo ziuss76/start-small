@@ -1,7 +1,7 @@
 'use server';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { getUserAndDb } from '@/app/_component/getUserAndDb';
+import { getUserAndDb } from '@/app/_function/getUserAndDb';
 
 export default async function resetWeight() {
   try {

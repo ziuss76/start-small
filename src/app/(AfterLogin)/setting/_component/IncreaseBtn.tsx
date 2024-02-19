@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
-import IncreaseWeight from './_component/increaseWeight';
+import increaseWeight from '../_function/increaseWeight';
 
 export default function LowerDown({ curDate }: { curDate: string }) {
   const [dropDownActive, setDropDownActive] = useState(false);
@@ -44,7 +44,7 @@ export default function LowerDown({ curDate }: { curDate: string }) {
 
               const confirmDelete = window.confirm(message);
               if (confirmDelete)
-                await IncreaseWeight(fieldMap[training], curDate);
+                await increaseWeight(fieldMap[training], curDate);
             }}
           >
             <button

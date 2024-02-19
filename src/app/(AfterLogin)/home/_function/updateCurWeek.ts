@@ -6,7 +6,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.tz.setDefault('Asia/Seoul');
 
-export default function UpdateCurWeek(
+export default function updateCurWeek(
   doneDaysDates: string[],
   thisWeekDates: string[]
 ) {

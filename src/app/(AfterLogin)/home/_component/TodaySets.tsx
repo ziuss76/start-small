@@ -2,10 +2,10 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import Confetti from '../Confetti';
-import { DoneToday } from '../DoneToday';
-import GetWeekWeights from '../GetWeekWeights';
-import UpdateCurWeek from '../UpdateCurWeek';
+import Confetti from './Confetti';
+import { DoneToday } from './DoneToday';
+import getWeekWeights from '../_function/getWeekWeights';
+import updateCurWeek from '../_function/updateCurWeek';
 
 export default function TodaySets({
   result,
@@ -28,9 +28,9 @@ export default function TodaySets({
   const thisWeek = ['1주', '2주', '3주', '4주'];
   const trainingDay = ['월', '화', '목', '금'];
   const currentDay = trainingDay.indexOf(today);
-  const weekWeights = GetWeekWeights(result);
+  const weekWeights = getWeekWeights(result);
 
-  let currentWeek = UpdateCurWeek(doneDaysDates, thisWeekDates);
+  let currentWeek = updateCurWeek(doneDaysDates, thisWeekDates);
 
   const [doneReps, setDoneReps] = useState(
     Array(trainingReps[currentWeek].length).fill(0)

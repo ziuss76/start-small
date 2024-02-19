@@ -1,12 +1,12 @@
-import ThisWeek from './ThisWeek';
+import ThisWeek from './_component/ThisWeek';
 import Link from 'next/link';
-import InputWeight from './InputWeight';
+import InputWeight from './_component/InputWeight';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import GetThisWeekDates from './GetThisWeekDates';
-import UpdateCurWeek from './UpdateCurWeek';
-import { getUserAndDb } from '@/app/_component/getUserAndDb';
+import getThisWeekDates from './_function/getThisWeekDates';
+import updateCurWeek from './_function/updateCurWeek';
+import { getUserAndDb } from '@/app/_function/getUserAndDb';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -30,8 +30,8 @@ export default async function Home() {
 
   const doneDays = await db?.collection('donedays').find().toArray();
   const doneDaysDates = doneDays.map((doc) => doc.today);
-  let thisWeekDates = GetThisWeekDates(curDate);
-  let currentWeek = UpdateCurWeek(doneDaysDates, thisWeekDates);
+  let thisWeekDates = getThisWeekDates(curDate);
+  let currentWeek = updateCurWeek(doneDaysDates, thisWeekDates);
 
   return (
     <div className='mx-3 flex h-full w-full flex-col justify-start text-center'>

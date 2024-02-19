@@ -1,10 +1,10 @@
-import TodaySets from './TodaySets';
-import InputWeight from '../InputWeight';
+import TodaySets from '../_component/TodaySets';
+import InputWeight from '../_component/InputWeight';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import GetThisWeekDates from '../GetThisWeekDates';
-import { getUserAndDb } from '@/app/_component/getUserAndDb';
+import getThisWeekDates from '../_function/getThisWeekDates';
+import { getUserAndDb } from '@/app/_function/getUserAndDb';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -29,7 +29,7 @@ export default async function Home() {
   const doneDays = await db?.collection('donedays').find().toArray();
   const doneDaysDates = doneDays.map((doc) => doc.today);
 
-  let thisWeekDates = GetThisWeekDates(curDate);
+  let thisWeekDates = getThisWeekDates(curDate);
 
   return (
     <div className='mx-3 flex h-full w-full flex-col justify-start text-center'>

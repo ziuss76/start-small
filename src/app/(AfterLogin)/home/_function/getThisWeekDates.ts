@@ -1,4 +1,4 @@
-export default function GetThisWeekDates(curDate: any) {
+export default function getThisWeekDates(curDate: any) {
   const trainingDays = ['월', '화', '목', '금'];
   const week = ['일', '월', '화', '수', '목', '금', '토'];
   const thisWeekDates: string[] = [];

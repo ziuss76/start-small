@@ -1,4 +1,3 @@
-// handleSubAndUnsub.ts
 import { Dispatch, SetStateAction, FormEvent } from 'react';
 import { subscribe } from './subscribe';
 import { checkExistingAlarm } from './checkExistingAlarm';
@@ -11,7 +10,7 @@ interface UserInfo {
   };
 }
 
-const handleSubscribe = async (
+export const handleSubscribe = async (
   e: FormEvent<HTMLButtonElement>,
   pushManager: PushManager | null,
   applicationServerKey: Uint8Array | null,
@@ -53,7 +52,7 @@ const handleSubscribe = async (
   }
 };
 
-const handleUnsubscribe = async (
+export const handleUnsubscribe = async (
   e: FormEvent<HTMLButtonElement>,
   userInfo: UserInfo | null,
   setIsAlarmSet: Dispatch<SetStateAction<boolean>>,
@@ -86,5 +85,3 @@ const handleUnsubscribe = async (
     window.alert('알림 삭제에 실패했습니다.');
   }
 };
-
-export { handleSubscribe, handleUnsubscribe };

@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import { getUserAndDb } from '@/app/_component/getUserAndDb';
+import { getUserAndDb } from '@/app/_function/getUserAndDb';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);

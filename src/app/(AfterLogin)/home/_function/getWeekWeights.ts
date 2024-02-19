@@ -1,4 +1,4 @@
-export default function GetWeekWeights(result: any) {
+export default function getWeekWeights(result: any) {
   let TM = result;
   let TMArr = [TM.press, TM.squat, TM.bench, TM.deadLift];
 

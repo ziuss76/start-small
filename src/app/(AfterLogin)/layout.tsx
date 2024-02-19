@@ -1,4 +1,4 @@
-import UseDarkMode from '@/app/_component/useDarkMode';
+import UseDarkMode from '@/app/_component/UseDarkMode';
 import NavMenu from '../_component/NavMenu';
 import '../globals.css';
 import { getServerSession } from 'next-auth';

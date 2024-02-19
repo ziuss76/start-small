@@ -1,13 +1,13 @@
-import DarkModeBtn from '@/app/(AfterLogin)/setting/DarkModeBtn';
-import ResetBtn from './ResetBtn';
-import LogoutBtn from './LogoutBtn';
-import LowerBtn from './LowerBtn';
-import NotificationBtn from './NotificationBtn';
-import IncreaseBtn from './IncreaseBtn';
+import DarkModeBtn from '@/app/(AfterLogin)/setting/_component/DarkModeBtn';
+import ResetBtn from './_component/ResetBtn';
+import LogoutBtn from './_component/LogoutBtn';
+import LowerBtn from './_component/LowerBtn';
+import NotificationBtn from './_component/NotificationBtn';
+import IncreaseBtn from './_component/IncreaseBtn';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
-import { getUserAndDb } from '@/app/_component/getUserAndDb';
+import { getUserAndDb } from '@/app/_function/getUserAndDb';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
