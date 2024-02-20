@@ -1,7 +1,7 @@
 'use client';
 import { useEffect } from 'react';
 
-export default function UseDarkMode() {
+export default function CheckDarkMode() {
   useEffect(() => {
     let res = document.cookie.split('; ').filter((item) => {
       return item.includes('mode');
