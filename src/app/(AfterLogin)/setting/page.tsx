@@ -1,4 +1,4 @@
-import DarkModeBtn from '@/app/(AfterLogin)/setting/_component/DarkModeBtn';
+import DarkModeBtn from './_component/DarkModeBtn';
 import ResetBtn from './_component/ResetBtn';
 import LogoutBtn from './_component/LogoutBtn';
 import LowerBtn from './_component/LowerBtn';
