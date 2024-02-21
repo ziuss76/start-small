@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface TimePickerProps {
   onTimeChange: (newTime: {
@@ -20,14 +20,16 @@ export default function TimePicker({
   time,
 }: TimePickerProps) {
   const [selectedTime, setSelectedTime] = useState(time);
+  const [prevTime, setPrevTime] = useState(time);
 
-  useEffect(() => {
-    setSelectedTime(time);
-  }, [time]);
+  if (time !== prevTime) {
+    // 부모 컴포넌트에서 time 을 변경했을 때
+    setSelectedTime(time); // 보이는 시간 변경
+    setPrevTime(time); // 부모 컴포넌트와 비교할 이전 시간 변경
+  }
 
-  // 아래 handleChange 때문에 selectedTime이 수시로 바뀔 수 있어서 time !== selectedTime 일 수 있음
-  // if (time !== selectedTime) { setSelectedTime(time); }
-  // 위 조건문으로 useEffect를 대체해보려 했지만 쓸 수 밖에 없는 듯 하다
+  // useEffect(() => { setSelectedTime(time); }, [time]);
+  // useEffect는 렌더링 후에 실행되기 때문에, 이렇게 하면 렌더링이 두 번 일어난다.
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const newTime = {
