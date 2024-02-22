@@ -25,7 +25,7 @@ export default function TodaySets({
     ['5', '3', '1+', '최대'],
     ['5', '5', '5'],
   ];
-  const thisWeek = ['1주', '2주', '3주', '4주'];
+
   const trainingDay = ['월', '화', '목', '금'];
   const currentDay = trainingDay.indexOf(today);
   const weekWeights = getWeekWeights(result);

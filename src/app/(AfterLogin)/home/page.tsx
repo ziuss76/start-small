@@ -32,8 +32,8 @@ export default async function Home() {
     ?.collection('donedays')
     .find({ email: userEmail })
     .toArray();
-  const doneDaysDates = doneDays.map((doc) => doc.today);
-  let thisWeekDates = getThisWeekDates(curDate);
+  const doneDaysDates = doneDays.map((doc) => doc.today); // 운동했던 날짜
+  let thisWeekDates = getThisWeekDates(curDate); // 이번 주 운동하는 날짜
   let currentWeek = updateCurWeek(doneDaysDates, thisWeekDates);
 
   return (
@@ -47,7 +47,10 @@ export default async function Home() {
             thisWeekDates={thisWeekDates}
           />
         ) : (
-          <InputWeight curDate={curDate.format('YYYY-MM-DD')} />
+          <InputWeight
+            curDate={curDate.format('YYYY-MM-DD')}
+            email={userInfo!.user.email}
+          />
         )}
       </div>
       <div className='flex h-1/5 w-full flex-col items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>

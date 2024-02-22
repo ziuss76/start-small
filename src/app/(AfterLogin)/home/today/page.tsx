@@ -45,7 +45,10 @@ export default async function Home() {
             thisWeekDates={thisWeekDates}
           />
         ) : (
-          <InputWeight curDate={curDate.format('YYYY-MM-DD')} />
+          <InputWeight
+            curDate={curDate.format('YYYY-MM-DD')}
+            email={userInfo!.user.email}
+          />
         )}
       </div>
     </div>

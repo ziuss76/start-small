@@ -9,7 +9,7 @@ export default function GraphBtn() {
     데드: 'deadLift',
   };
   return (
-    <div className='mt-2.5 grid grid-cols-2 gap-1.5'>
+    <div className='grid grid-cols-2 gap-1.5'>
       {trainings.map((training, i) => (
         <Link
           href={`/graph/${trainingMap[training as keyof typeof trainingMap]}`}
