@@ -54,10 +54,10 @@ export default function TodaySets({
     setIsLoading(true);
     try {
       await DoneToday();
-      router.push('/home');
     } catch (error) {
       console.error(error);
     } finally {
+      router.push('/home');
       setIsLoading(false);
     }
   };
