@@ -10,7 +10,7 @@ export default function LoginLoading() {
   return (
     <div className='flex h-[100dvh] w-[100dvw] items-center justify-center'>
       <div className='flex'>
-        <p>잠시만 기다려주세요...</p>
+        <p className='text-xl'>🐢 잠시만 기다려주세요... 💦</p>
       </div>
     </div>
   );
