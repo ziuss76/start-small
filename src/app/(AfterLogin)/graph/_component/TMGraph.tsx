@@ -49,6 +49,7 @@ export default function TMGraph({
       color: isDarkMode ? 'rgb(203 213 225)' : 'rgb(30 41 59)',
     },
     ticks: {
+      // 눈금
       font: {
         size: 15,
       },

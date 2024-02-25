@@ -1,7 +1,6 @@
 import GraphBtn from '../_component/GraphBtn';
 import TMGraph from '../_component/TMGraph';
 import { getUserAndDb } from '@/app/_function/getUserAndDb';
-import { cache } from 'react';
 
 export default async function Graph({
   params,
@@ -12,7 +11,7 @@ export default async function Graph({
   const userEmail: string | undefined = userInfo?.user.email;
   const training: string = params.training;
 
-  const getWeightAndDate = cache(async () => {
+  const getWeightAndDate = async () => {
     let result = await db
       ?.collection('trainingmaxes')
       .find({ email: userEmail }, { sort: { date: 1 } })
@@ -23,7 +22,7 @@ export default async function Graph({
     }));
 
     return weightAndDate;
-  });
+  };
 
   const weightAndDate = await getWeightAndDate();
 
