@@ -1,4 +1,5 @@
 import BreathAni from './BreathAni';
+import PlayBtn from './PlayBtn';
 
 export default function Mind() {
   return (
@@ -15,10 +16,7 @@ export default function Mind() {
               <BreathAni />
             </div>
             <div className='flex h-1/5 w-full flex-col items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
-              <p>4-6 숨쉬기에 익숙해지면 명상을 시작하세요!</p>
-              <button className='text-md mt-4 w-32 rounded-lg bg-slate-50 px-5 py-2 font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
-                시작
-              </button>
+              <PlayBtn />
             </div>
           </div>
         </div>
