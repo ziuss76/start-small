@@ -16,7 +16,7 @@ export default function Title() {
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsSmallScreen(window.innerHeight <= 675);
+      setIsSmallScreen(window.innerHeight <= 800);
     };
 
     checkScreenSize();
