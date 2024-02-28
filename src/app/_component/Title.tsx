@@ -16,7 +16,7 @@ export default function Title() {
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsSmallScreen(window.innerHeight <= 800);
+      setIsSmallScreen(window.innerHeight <= 735);
     };
 
     checkScreenSize();
@@ -32,8 +32,8 @@ export default function Title() {
   }
 
   return (
-    <div className='h-16'>
-      <div className='flex h-full w-full items-center justify-center text-center text-xl'>
+    <div className='h-12'>
+      <div className='flex h-full w-full items-center justify-center text-center text-lg'>
         <div>{titleMap[segment as string]}</div>
       </div>
     </div>
