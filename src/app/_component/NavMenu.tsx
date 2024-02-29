@@ -18,7 +18,7 @@ export default function NavMenu() {
   const segment = useSelectedLayoutSegment();
 
   return (
-    <nav className='absolute bottom-[0.1rem] flex h-20 w-full max-w-screen-md  text-center '>
+    <nav className='fixed bottom-0 flex h-20 w-full max-w-screen-md bg-slate-100 dark:bg-slate-900'>
       <Link
         className='flex h-full w-1/5 items-center justify-center'
         href='/calendar'
