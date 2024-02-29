@@ -17,7 +17,7 @@ export default async function AfterLoginLayout({
       <CheckDarkMode />
       {!session && redirect('/')}
       <Title />
-      <div className='h-[92%] w-full overflow-auto pb-20'>{children}</div>
+      <div className='h-full w-full overflow-auto pb-[4.5rem]'>{children}</div>
       <NavMenu />
     </div>
   );
