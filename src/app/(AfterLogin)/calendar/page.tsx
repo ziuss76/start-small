@@ -21,7 +21,7 @@ export default async function Calendar() {
         <div className='flex h-1/5 w-full flex-col items-center justify-center space-y-1.5 rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
           <p>📒 이번 달의 운동 기록</p>
           <div className='flex space-x-1.5'>
-            <div className='flex h-[3.1rem] w-[3.1rem] items-center justify-center rounded-full bg-green-600 text-center text-sm'>
+            <div className='flex h-[3.1rem] w-[3.1rem] items-center justify-center rounded-full bg-green-500 text-center text-sm'>
               <p>완료</p>
             </div>
             <div className='flex h-12 w-12 items-center justify-center rounded-full border-2 border-cyan-500 text-sm'>
