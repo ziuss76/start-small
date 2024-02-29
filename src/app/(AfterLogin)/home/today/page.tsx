@@ -35,21 +35,23 @@ export default async function Home() {
   let thisWeekDates = getThisWeekDates(curDate);
 
   return (
-    <div className='mx-3 flex h-full w-full flex-col justify-start text-center'>
-      <div className='mb-3 flex h-4/6 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
-        {result ? (
-          <TodaySets
-            result={result}
-            today={today}
-            doneDaysDates={doneDaysDates}
-            thisWeekDates={thisWeekDates}
-          />
-        ) : (
-          <InputWeight
-            curDate={curDate.format('YYYY-MM-DD')}
-            email={userInfo!.user.email}
-          />
-        )}
+    <div className='flex h-full w-full justify-center'>
+      <div className='mx-3 flex h-full w-full flex-col justify-start text-center'>
+        <div className='mb-3 flex h-4/6 w-full items-center justify-center rounded-lg bg-slate-300 text-center dark:bg-slate-500'>
+          {result ? (
+            <TodaySets
+              result={result}
+              today={today}
+              doneDaysDates={doneDaysDates}
+              thisWeekDates={thisWeekDates}
+            />
+          ) : (
+            <InputWeight
+              curDate={curDate.format('YYYY-MM-DD')}
+              email={userInfo!.user.email}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
