@@ -26,14 +26,14 @@ export default async function ThisWeek({
       {trainingDays.map((day, index) => {
         return (
           <div key={index}>
-            <div className='m-2 flex flex-col items-center space-x-3 space-y-2'>
+            <div className='m-2 flex flex-col items-center space-y-2'>
               <div className='relative'>
                 {doneDaysDates.includes(thisWeekDates[index]) ? (
-                  <div className='absolute bottom-[-0.02rem] left-[-0.85rem]'>
+                  <div className='absolute bottom-[-0.02rem] left-[-1.35rem]'>
                     ✅
                   </div>
                 ) : today === day ? (
-                  <div className='absolute bottom-[-0.1rem] left-[-1.5rem] animate-bounce-fast'>
+                  <div className='absolute bottom-[-0.1rem] left-[-2rem] animate-bounce-fast'>
                     <Image
                       src={favicon}
                       className='inline-block'
@@ -46,11 +46,11 @@ export default async function ThisWeek({
                   ''
                 )}
                 {today === day ? (
-                  <div className='ml-3 flex h-[1.8rem] w-[7.5rem] items-center justify-center rounded-xl bg-slate-50 text-lg font-semibold text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+                  <div className='flex h-[1.8rem] w-[7.5rem] items-center justify-center rounded-xl bg-slate-50 text-lg font-semibold text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
                     {day} - {training[index]}
                   </div>
                 ) : (
-                  <div className='ml-3 flex h-[1.7rem] w-[6rem] items-center justify-center rounded-xl bg-slate-50 text-[1rem] font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
+                  <div className='flex h-[1.7rem] w-[6rem] items-center justify-center rounded-xl bg-slate-50 text-[1rem] font-medium text-slate-900 shadow-md active:bg-slate-200 dark:bg-slate-700 dark:text-white dark:active:bg-slate-600'>
                     {day} - {training[index]}
                   </div>
                 )}
