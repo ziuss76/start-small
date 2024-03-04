@@ -12,14 +12,15 @@
 당신의 무거운 바벨이 다시 가벼워 지도록<br/>
 </b>
 <br/>
-🌱 https://start-small-ziuss.vercel.app/
+🌱 https://start-small-ziuss.vercel.app
 </div>
 
 <br/>
 
 ## 메인 화면
 
-<img src="https://github.com/ziuss76/start-small/assets/89372201/9090e5d9-64e5-4fa1-bb7d-bb14fd86198e"/>
+<img src="https://github.com/ziuss76/start-small/assets/89372201/686b7e38-d6e2-4cb1-9f3e-aa60ec3fd385"/>
+<img src="https://github.com/ziuss76/start-small/assets/89372201/eac8c786-f68a-4d59-929d-a666af5c510c"/>
 <br />
 <br />
 
@@ -31,10 +32,10 @@
 
 ## 기술스택
 
-| **Tech Stack** |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| -------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **Frontend**   | <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=FFF"> <img src="https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=white&style=for-the-badge"> <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"> <img alt="TailwindCSS" src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"/> <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"> |
-| **Backend**    |                                                                                                                                                                               <img src="https://img.shields.io/badge/nodejs-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"> <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white">                                                                                                                                                                               |
-| **DB**         |                                                                                                                                                                                                                                    <img src="https://img.shields.io/badge/mongodb-47A248?style=for-the-badge&logo=mongodb&logoColor=white">                                                                                                                                                                                                                                    |
+| **Tech Stack** |                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| -------------- | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| **Frontend**   | <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=FFF"> <img src="https://img.shields.io/badge/-React-61DAFB?logo=react&logoColor=white&style=for-the-badge"> <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"> <img alt="TailwindCSS" src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"/> |
+| **Backend**    |                                                                                                                            <img src="https://img.shields.io/badge/nodejs-339933?style=for-the-badge&logo=nodedotjs&logoColor=white"> <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white">                                                                                                                             |
+| **DB**         |                                                                                                                                                                                 <img src="https://img.shields.io/badge/mongodb-47A248?style=for-the-badge&logo=mongodb&logoColor=white">                                                                                                                                                                                  |
 
   <br />

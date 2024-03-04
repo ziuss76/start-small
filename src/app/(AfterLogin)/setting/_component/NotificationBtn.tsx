@@ -32,10 +32,10 @@ export default function NotificationBtn({
   userInfo: UserInfo | null;
 }) {
   const [pushManager, setPushManager] = useState<PushManager | null>(null);
-  const [newTime, setNewTime] = useState(initialTime);
-  const [alarmTime, setAlarmTime] = useState(initialTime);
-  const [isAlarmSet, setIsAlarmSet] = useState(false);
-  const [isTimePicker, setIsTimePicker] = useState(false);
+  const [newTime, setNewTime] = useState(initialTime); // 새로운 알람 시간
+  const [alarmTime, setAlarmTime] = useState(initialTime); // 설정 된 알람 시간
+  const [isAlarmSet, setIsAlarmSet] = useState(false); // 알람이 설정 되어 있는지
+  const [isTimePicker, setIsTimePicker] = useState(false); // ⬇️ 버튼 클릭 시 타임픽커 표시
 
   const showTimePicker = () => {
     setIsTimePicker(!isTimePicker);
