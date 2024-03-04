@@ -28,12 +28,12 @@ export default async function ThisWeek({
           <div key={index}>
             <div className='m-2 flex flex-col items-center space-y-2'>
               <div className='relative'>
-                {doneDaysDates.includes(thisWeekDates[index]) ? (
-                  <div className='absolute bottom-[-0.02rem] left-[-1.4rem]'>
+                {!doneDaysDates.includes(thisWeekDates[index]) ? (
+                  <div className='absolute bottom-[-0.02rem] left-[-1.6rem]'>
                     ✅
                   </div>
                 ) : today === day ? (
-                  <div className='absolute bottom-[-0.1rem] left-[-2.1rem] animate-bounce-fast'>
+                  <div className='absolute bottom-[-0.1rem] left-[-2.2rem] animate-bounce-fast'>
                     <Image
                       src={favicon}
                       className='inline-block'
