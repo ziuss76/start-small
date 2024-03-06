@@ -25,12 +25,10 @@ export default function TodaySets({
     ['5', '3', '1+', '최대'],
     ['5', '5', '5'],
   ];
-
   const trainingDay = ['월', '화', '목', '금'];
   const currentDay = trainingDay.indexOf(today);
-  const weekWeights = getWeekWeights(result);
-
-  let currentWeek = updateCurWeek(doneDaysDates, thisWeekDates);
+  const weekWeights = getWeekWeights(result); // 4주분의 운동중량
+  let currentWeek = updateCurWeek(doneDaysDates, thisWeekDates); // 0 1 2 3
 
   const [doneReps, setDoneReps] = useState(
     Array(trainingReps[currentWeek].length).fill(0)

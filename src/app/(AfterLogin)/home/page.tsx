@@ -25,8 +25,8 @@ export default async function Home() {
 
   const week = ['일', '월', '화', '수', '목', '금', '토'];
   const thisWeek = ['1주', '2주', '3주', '4주'];
-  const curDate = dayjs().tz();
-  const today = week[curDate.day()]; // 요일
+  const curDate = dayjs().tz(); // 현재 날짜 객체 (아래 prop로 넘길 때는 format 사용해 문자열로 변환)
+  const today = week[curDate.day()]; // 오늘의 요일 (ex: '월')
 
   const doneDays = await db
     ?.collection('donedays')

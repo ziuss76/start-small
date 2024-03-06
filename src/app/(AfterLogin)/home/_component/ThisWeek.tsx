@@ -14,12 +14,10 @@ export default async function ThisWeek({
   doneDaysDates: string[];
   thisWeekDates: string[];
 }) {
-  const training = ['프레스', '스쿼트', '벤치', '데드'];
-  const weekWeights = getWeekWeights(result);
-
   const trainingDays = ['월', '화', '목', '금'];
-
-  let currentWeek = updateCurWeek(doneDaysDates, thisWeekDates);
+  const training = ['프레스', '스쿼트', '벤치', '데드'];
+  const weekWeights = getWeekWeights(result); // 4주분의 운동중량
+  let currentWeek = updateCurWeek(doneDaysDates, thisWeekDates); // 0 1 2 3
 
   return (
     <div className='flex w-full flex-col items-center'>
