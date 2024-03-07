@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
 import increaseWeight from '../_function/increaseWeight';
 
-export default function LowerDown({ curDate }: { curDate: string }) {
+export default function IncreaseBtn({ curDate }: { curDate: string }) {
   const [dropDownActive, setDropDownActive] = useState(false);
   const trainings = ['프레스', '스쿼트', '벤치', '데드', '전체 종목'];
   const fieldMap: { [key: string]: string } = {
@@ -42,8 +42,8 @@ export default function LowerDown({ curDate }: { curDate: string }) {
               if (training === '전체 종목')
                 message = `전체 종목 중량을 올리시겠습니까?\n프레스와 벤치는 2.5kg, 스쿼트와 데드는 5kg가 올라가며\n4주동안의 트레이닝 성공시 권장합니다.`;
 
-              const confirmDelete = window.confirm(message);
-              if (confirmDelete)
+              const confirmIncrease = window.confirm(message);
+              if (confirmIncrease)
                 await increaseWeight(fieldMap[training], curDate);
             }}
           >

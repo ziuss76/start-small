@@ -76,8 +76,6 @@ export default async function inputWeight({
           placeholder='데드 1RM의 숫자만 입력해주세요.'
           className='m-1.5 w-full rounded-lg p-2 text-slate-900 shadow-md focus:outline-slate-400'
         />
-        {/* <input type='hidden' name='email' value={userInfo?.user.email}></input>
-        <input type='hidden' name='date' value={curDate}></input> */}
 
         <p className='my-3'>
           자신의 1RM을 잘 모르셔도 괜찮습니다 😄

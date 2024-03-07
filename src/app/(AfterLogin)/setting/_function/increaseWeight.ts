@@ -27,15 +27,15 @@ export default async function increaseWeight(
 
     const { _id, ...latestWeights } = currentWeights[0];
 
-    let dataToInsert: { [key: string]: any } = {};
+    let weightsToUpdate: { [key: string]: any } = {};
 
     if (training === '전체 종목') {
       for (const key in trainingMap) {
-        dataToInsert[key] = latestWeights[key] + trainingMap[key];
+        weightsToUpdate[key] = latestWeights[key] + trainingMap[key];
       }
-      dataToInsert['email'] = userEmail;
-      dataToInsert['date'] = curDate;
-      await updateOrInsertData(db, userEmail!, curDate, dataToInsert);
+      weightsToUpdate['email'] = userEmail;
+      weightsToUpdate['date'] = curDate;
+      await updateOrInsertData(db, userEmail!, curDate, weightsToUpdate);
     } else {
       const updatedWeights = {
         ...latestWeights,
