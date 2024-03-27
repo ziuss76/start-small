@@ -78,7 +78,7 @@ export default function TMGraph({
     },
   };
 
-  const labels = weightAndDate?.map((item) => item.date);
+  const labels = weightAndDate?.map((item) => item.date.slice(5));
 
   const trainingMap = {
     press: '프레스',
